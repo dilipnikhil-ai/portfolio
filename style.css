@@ -1,0 +1,336 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+    padding-bottom: 50px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1, h2 {
+    color: #333;
+    font-weight: normal;
+}
+
+/* Career Timeline section - moved up */
+h2 {
+    font-size: 1.5rem;
+    margin-top: 0.5rem; /* Reduce from 1rem */
+    margin-bottom: 1rem; /* Reduced from 1.5rem */
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Profile section */
+.profile-header {
+    display: flex;
+    flex-direction: row; /* Change to row layout */
+    align-items: center;
+    justify-content: flex-start; /* Align items to the start */
+    gap: 2rem; /* Space between photo and text */
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    text-align: left; /* Left align text */
+}
+.profile-image {
+    flex-shrink: 0;
+}
+
+.profile-image img {
+    width: 200px; /* Decrease width */
+    height: 200px; /* Decrease height */
+    border-radius: 50%;
+    object-fit: contain; /* Display image at its native resolution */
+    border: 3px solid white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center; /* Center align */
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; /* Increase width */
+    height: 50px; /* Increase height */
+    border-radius: 50%; /* Make icons circular */
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.social-links a img {
+    width: 30px; /* Increase icon size */
+    height: 30px; /* Increase icon size */
+    opacity: 0.8;
+}
+
+.social-links a:hover {
+    background-color: #e2e8f0; /* Change background color on hover */
+}
+
+social-links a:hover img {
+    opacity: 1;
+}
+
+.timeline-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.timeline {
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 70px;
+    width: 2px;
+    background-color: #e2e8f0;
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-left: 100px; /* Adjust padding to accommodate year labels */
+}
+
+.year-label {
+    position: absolute;
+    left: -80px; /* Move to the left of the dot */
+    top: 5px;
+    width: 70px; /* Increased from 60px to accommodate longer years */
+    text-align: right;
+    font-size: 0.9rem;
+    color: #718096;
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: visible; /* Allow text to overflow */
+}
+
+.dot {
+    position: absolute;
+    left: 70px;
+    top: 8px;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #cbd5e0;
+    border: 2px solid white;
+    z-index: 1;
+}
+
+.logo-container {
+    margin-left: 85px;
+    width: 90px;
+    height: 90px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+.logo-container img {
+    width: 100%; /* Ensure the image takes the full width of the container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the image fits within the container */
+}
+
+.content {
+    margin-left: 20px;
+    flex-grow: 1;
+    padding-top: 5px;
+}
+
+.year {
+    flex: 0 0 100px;
+    color: #999;
+    text-align: left;
+    padding-right: 15px;
+    padding-top: 5px;
+    white-space: nowrap;
+    line-height: 1.2;
+}
+
+.logo {
+    flex: 0 0 70px;
+    padding: 5px 15px 0 0;
+}
+
+.logo img {
+    width: 60px;
+    height: 60px;
+}
+
+.content p {
+    margin-bottom: 15px;
+}
+
+.timeline:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 110px;
+    width: 2px;
+    background-color: #e2e8f0;
+}
+.timeline-item:last-child:before {
+    display: none;
+}
+
+/* Talks grid */
+.talks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.talk {
+    border: 1px solid #eee;
+    background-color: #fff;
+}
+
+.talk img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.talk-title {
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+/* Teaching section */
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.video {
+    position: relative;
+}
+
+.video img {
+    width: 100%;
+    display: block;
+}
+
+.video-duration {
+    position: absolute;
+    bottom: 50px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2px 4px;
+    font-size: 0.8rem;
+    border-radius: 2px;
+}
+
+.video-title {
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 0.9rem;
+}
+
+.video-stats {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.teaching p {
+    margin: 20px 0;
+}
+
+.course-links {
+    margin: 20px 0;
+}
+
+.course-links a {
+    margin-right: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-image {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .timeline-item {
+        flex-direction: column;
+    }
+    
+    .year, .logo {
+        flex: 0;
+        text-align: left;
+        padding: 0;
+        margin-bottom: 10px;
+    }
+    
+    .talks-grid, .videos-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .talks-grid, .videos-grid {
+        grid-template-columns: 1fr;
+    }
+}
