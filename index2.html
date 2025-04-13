@@ -129,14 +129,14 @@
         
         /* Timeline section - New style from first file */
         .timeline-container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 10px 0;
+            padding: 20px 0;
         }
         
         .timeline {
             position: relative;
-            padding: 10px 0;
+            padding: 20px 0;
         }
         
         .timeline::before {
@@ -153,14 +153,12 @@
             position: relative;
             margin-bottom: 30px;
             display: flex;
-            align-items: center;
-            
         }
         
         .year-label {
             position: absolute;
-            left: -20px;
-            width: 80px;
+            left: 0;
+            width: 60px;
             text-align: right;
             font-size: 0.9rem;
             color: #718096;
@@ -176,7 +174,7 @@
             border-radius: 50%;
             background-color: #cbd5e0;
             border: 2px solid white;
-            z-index: 2;
+            z-index: 1;
         }
         
         .logo-container {
@@ -292,6 +290,68 @@
             text-align: center;
             font-size: 0.9rem;
         }
+        
+        /* Add styles for nested timeline */
+        .nested-timeline {
+            margin-left: 20px; /* Indent nested timeline */
+            border-left: 2px dashed #e2e8f0; /* Dashed line for nested timeline */
+            padding-left: 20px;
+        }
+        
+        .nested-timeline .timeline-item {
+            margin-bottom: 15px; /* Reduce vertical spacing */
+        }
+        
+        .nested-timeline .year-label {
+            font-size: 0.8rem; /* Smaller font for nested timeline years */
+            color: #a0aec0;
+        }
+        
+        .nested-timeline .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #cbd5e0;
+            border: 1px solid white;
+        }
+        
+        /* Add these nested timeline styles */
+        .nested-timeline {
+            margin-left: 20px;
+            margin-top: 15px;
+            border-left: 2px dashed #e2e8f0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .nested-timeline .timeline-item {
+            margin-bottom: 15px;
+            padding-left: 95px; /* Increase padding to prevent overlap */
+            min-height: 30px;
+        }
+
+        .nested-timeline .year-label {
+            position: absolute;
+            left: 0;
+            width: 85px; /* Increase width for dates */
+            text-align: right;
+            font-size: 0.8rem;
+            color: #a0aec0;
+            padding-right: 10px;
+        }
+
+        .nested-timeline .dot {
+            left: 90px; /* Adjust dot position */
+        }
+
+        .nested-timeline .content {
+            margin-left: 25px;
+            padding-top: 0;
+        }
+
+        .nested-timeline .content p {
+            margin: 0;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
@@ -303,13 +363,12 @@
             </div>
             <div class="profile-info">
                 <h1>Dilip Nikhil</h1>
-                <p class="tagline">In a quest, to solve problems at scale!!</p>
+                <p class="tagline">Machine Learning Engineer & AI Developer 🧠 🤖 ✨</p>
                 <div class="social-links">
-                    <!-- <a href="https://twitter.com/dilipnikhil" aria-label="Twitter"><img src="images/twitter.png" alt="Twitter"></a> -->
+                    <a href="https://twitter.com/dilipnikhil" aria-label="Twitter"><img src="/api/placeholder/24/24" alt="Twitter"></a>
                     <a href="https://github.com/dilipnikhil" aria-label="GitHub"><img src="images/github.png" alt="GitHub"></a>
-                    <!-- <a href="https://scholar.google.com/citations?user=dilipnikhil" aria-label="Google Scholar"><img src="/api/placeholder/24/24" alt="Google Scholar"></a> -->
-                    <!-- <a href="feed.xml" aria-label="RSS"><img src="/api/placeholder/24/24" alt="RSS"></a> -->
-                    <a href="cv/resume.pdf" download aria-label="Download CV"><img src="images/cv.png" alt="Download CV"> 
+                    <a href="https://scholar.google.com/citations?user=dilipnikhil" aria-label="Google Scholar"><img src="/api/placeholder/24/24" alt="Google Scholar"></a>
+                    <a href="feed.xml" aria-label="RSS"><img src="/api/placeholder/24/24" alt="RSS"></a>
                     <a href="mailto:dfranci@iu.edu" aria-label="Email"><img src="images/email.png" alt="Email"></a>
                 </div>
             </div>
@@ -325,7 +384,7 @@
                         <img src="images/miracle.jpg" alt="Future">
                     </div>
                     <div class="content">
-                        <p>Currently looking for a new role in a team to drive problem solving at scale at the intersection of human and digital intelligence.</p>
+                        <p>I am currently hoping for a miracle, pursuing opportunities where I can apply my computational science expertise to solve challenging AI problems.</p>
                     </div>
                 </div>
                 
@@ -336,8 +395,25 @@
                         <img src="images/iub.png" alt="Indiana University">
                     </div>
                     <div class="content">
-                        <p><p>I earned my Master’s in <a href="#">Data Science</a> from <a href="#">Indiana University Bloomington</a>, where I gained more than just textbook knowledge. Collaborating with professors, industry leaders, and passionate peers from across the world gave me more than a degree — it gave me the mindset to lead and collaborate effectively in the industry.</p>
-
+                        <p style="margin-bottom: 0.5rem;">Earned my Master's in <a href="#">Computational Science</a> from <a href="#">Indiana University Bloomington</a>, where I deepened my understanding of cutting-edge deep learning systems and optimization techniques.</p>
+                        
+                        <!-- Nested timeline -->
+                        <div class="nested-timeline">
+                            <div class="timeline-item" style="margin-bottom: 10px;">
+                                <div class="year-label">Aug '23 - Jan '24</div>
+                                <div class="dot"></div>
+                                <div class="content">
+                                    <p style="margin: 0;">Worked as an Intern at Institutional Analytics, focusing on data clustering and optimization techniques.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item" style="margin-bottom: 10px;">
+                                <div class="year-label">Jan '24 - Jan '25</div>
+                                <div class="dot"></div>
+                                <div class="content">
+                                    <p style="margin: 0;">Served as a Research Assistant (RA), contributing to RAG systems and institutional analytics projects.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -348,11 +424,12 @@
                         <img src="images/hexawere.png" alt="Hexaware">
                     </div>
                     <div class="content">
-                        <p>As the sole Senior Data Analyst at <a href="https://hexaware.com/services/data-ai-solutions/">Hexaware</a>, in a team of 6, which is now over 50,  I led and delivered multiple projects across computer vision, NLP, and audio-based domains. This was a defining phase in my career — where I got the chance to interact directly with company leaders, including Vice Presidents and Senior VPs. Presenting my work to them, listening to their feedback, and understanding how they think about software products opened my eyes to a world beyond tools, languages, and code.</p>
+                        <p>Served as a <a href="#">Senior Data Analyst</a> at <a href="#">Hexaware</a>, architecting end-to-end ML solutions in computer vision and text analytics.</p>
+                        <p>Managed projects and stakeholder relationships with <a href="#">Niki</a>, <a href="#">ICICI Bank</a>, <a href="#">Josh</a>, and others. Won the <a href="#">Hexaware Yuva</a> award for leadership excellence.</p>
                     </div>
                 </div>
                 
-                <!-- <div class="timeline-item">
+                <div class="timeline-item">
                     <div class="year-label">2020 - 2021</div>
                     <div class="dot"></div>
                     <div class="logo-container bbmp">
@@ -362,7 +439,7 @@
                         <p>Worked as a <a href="#">Civil Contractor</a> handling multiple end-to-end projects under <a href="#">BBMP, Bengaluru</a>, collaborating closely with the state government of India.</p>
                         <p>Volunteered during the COVID-19 pandemic to help patients and people in need access rations and immunizations.</p>
                     </div>
-                </div> -->
+                </div>
                 
                 <div class="timeline-item">
                     <div class="year-label">2017 - 2019</div>
@@ -371,101 +448,84 @@
                         <img src="images/acc.png" alt="Accenture">
                     </div>
                     <div class="content">
-                        Accenture Solutions was my stepping stone into the world of digital intelligence after graduation. While the work I did then was simpler compared to what I do now, every minute was fascinating. It sparked a deep curiosity in me about machine intelligence and set me on a path to explore a wide range of fields — from cognitive psychology and deep learning to quantum computing and bayesian statistics.</p>
+                        <p>Started my career as a <a href="#">Software Engineer</a> at <a href="#">Accenture</a>, focusing on text classification.</p>
+                        <p>Received the <a href="#">Accenture Celebrates Excellence</a> award for leadership and responsibility in ML and AI development.</p>
                     </div>
                 </div>
             </div>
         </div>
         
-        <section id="academic-papers" class="section">
-            <div class="container">
-                <h2>Applied Academic Papers & Projects</h2>
-                <p class="section-intro">My research spans machine learning, healthcare analytics, distributed computing, and autonomous systems, with a focus on developing innovative solutions to complex problems.</p>
-                
-                <div class="talks-grid">
-                    <div class="talk">
-                        <a href="/research_papers/alzheimers.pdf">
-                            <img src="/images/AD.jpg" alt="Alzheimer's Research Paper" class="talk-image">
-                            <div class="talk-title">A Novel Transformer-Based Multimodal Deep Learning Framework for Alzheimer's Disease Diagnosis (2024)</div>
-                        </a>
-                    </div>
-                    
-                    <div class="talk">
-                        <a href="/research_papers/pinn.pdf">
-                            <img src="/images/pinn.jpg" alt="Autonomous Racing Research" class="talk-image">
-                            <div class="talk-title">Estimation of Bicycle Dynamic Model Parameters with Physics-Informed Neural Networks (2024)</div>
-                        </a>
-                    </div>
-                    
-                    <div class="talk">
-                        <a href="/research_papers/Dask.pdf">
-                            <img src="/images/dask.jpg" alt="Distributed Computing Research" class="talk-image">
-                            <div class="talk-title">Scalable Cloud-Based Distributed Computing for Efficient Big Data Analytics (2023)</div>
-                        </a>
-                    </div>
-                    
-                    <div class="talk">
-                        <a href="/research_papers/shapely.pdf">
-                            <img src="/images/shap.jpg" alt="Explainable AI Research" class="talk-image">
-                            <div class="talk-title">Explainable and Unbiased Predictive Analytics for Institutional Researchers (2024)</div>
-                        </a>
-                    </div>
-                    
-                    <div class="talk">
-                        <a href="/research_papers/igcvae.pdf">
-                            <img src="/images/gene.jpg" alt="Explainable AI Research" class="talk-image">
-                            <div class="talk-title">Deciphering Alzheimer’s Disease Through MRI and Synthetic Gene Expression Data</div>
-                        </a>
-                    </div>
-                    <div class="talk">
-                        <a href="/research_papers/lap.pdf">
-                            <img src="/images/lap.jpg" alt="Learning Analytics Research" class="talk-image">
-                            <div class="talk-title">Using Machine Learning and Variable Importance to Support Program Development (2024)</div>
-                        </a>
-                    </div>
-                </div>
+        <!-- Featured Publications -->
+        <h2>selected publications</h2>
+        <div class="talks-grid">
+            <div class="talk">
+                <a href="#">
+                    <img src="/api/placeholder/320/180" alt="Publication 1">
+                    <div class="talk-title">Optimizing RAG Systems for Institutional Data (2024)</div>
+                </a>
             </div>
-        </section>
+            <div class="talk">
+                <a href="#">
+                    <img src="/api/placeholder/320/180" alt="Publication 2">
+                    <div class="talk-title">Clustering Techniques for Educational Analytics (2023)</div>
+                </a>
+            </div>
+            <div class="talk">
+                <a href="#">
+                    <img src="/api/placeholder/320/180" alt="Publication 3">
+                    <div class="talk-title">End-to-End Computer Vision for Banking (2022)</div>
+                </a>
+            </div>
+            <div class="talk">
+                <a href="#">
+                    <img src="/api/placeholder/320/180" alt="Publication 4">
+                    <div class="talk-title">Text Classification for Customer Service (2019)</div>
+                </a>
+            </div>
+        </div>
         
-        <style>
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-            }
-            
-            .talks-grid {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 20px;
-                justify-content: center;
-            }
-            
-            .talk {
-                flex: 1 1 calc(33% - 20px); /* Adjusts the width dynamically */
-                max-width: 250px;
-                text-align: center;
-                padding: 10px
-            }
-            
-            .talk-image {
-                width: 100%;
-                height: 150px;
-                border-radius: 8px;
-            }
-            
-            .talk-title {
-   
-                margin: top 8px;
-                font-size: 12px;
-            }
-            
-            .section-intro {
-                text-align: center;
-                margin-bottom: 20px;
-            }
-        </style>
+        <!-- Featured Talks Section -->
+        <h2>featured talks</h2>
+        <div class="talks-grid">
+            <div class="talk">
+                <a href="#">
+                    <img src="/api/placeholder/320/180" alt="Talk 1">
+                    <div class="talk-title">AI and Public Service: Lessons from COVID-19 Relief (2024)</div>
+                </a>
+            </div>
+            <div class="talk">
+                <a href="#">
+                    <img src="/api/placeholder/320/180" alt="Talk 2">
+                    <div class="talk-title">IU Computational Science Symposium (2024)</div>
+                </a>
+            </div>
+            <div class="talk">
+                <a href="#">
+                    <img src="/api/placeholder/320/180" alt="Talk 3">
+                    <div class="talk-title">Leadership in ML Engineering (2023)</div>
+                </a>
+            </div>
+            <div class="talk">
+                <a href="#">
+                    <img src="/api/placeholder/320/180" alt="Talk 4">
+                    <div class="talk-title">Banking Analytics Summit (2022)</div>
+                </a>
+            </div>
+            <div class="talk">
+                <a href="#">
+                    <img src="/api/placeholder/320/180" alt="Talk 5">
+                    <div class="talk-title">Hexaware Tech Conference (2022)</div>
+                </a>
+            </div>
+            <div class="talk">
+                <a href="#">
+                    <img src="/api/placeholder/320/180" alt="Talk 6">
+                    <div class="talk-title">Accenture Innovation Workshop (2019)</div>
+                </a>
+            </div>
+        </div>
         
-        <!-- Teaching Section
+        <!-- Teaching Section -->
         <h2>teaching & mentorship</h2>
         <div class="teaching">
             <p>I share my knowledge through <a href="#">technical workshops</a> and mentoring sessions, focusing on ML applications in real-world scenarios.</p>
@@ -513,9 +573,10 @@
                 <a href="#">technical guides</a> |
                 <a href="#">career resources</a>
             </div>
-        </div> -->
+        </div>
         
-        <!-- <h2>latest blog posts</h2>
+        <!-- Recent Blog Posts -->
+        <h2>latest blog posts</h2>
         <div class="talks-grid">
             <div class="talk">
                 <a href="blog-post.html">
@@ -535,7 +596,7 @@
                     <div class="talk-title">Leadership in AI Teams: Beyond Technical Skills</div>
                 </a>
             </div>
-        </div> -->
+        </div>
     </div>
     
     <footer>
