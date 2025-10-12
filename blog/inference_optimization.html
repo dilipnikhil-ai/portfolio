@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Optimization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "SF Pro Text", "Myriad Set Pro", "SF Pro Icons", "Helvetica Neue", "Helvetica", sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #fff;
+            font-size: 16px;
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+            letter-spacing: -0.015em;
+        }
+
+
+        /* Main Layout */
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 2rem 2rem;
+        }
+
+        /* Table of Contents */
+        .toc-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .toc {
+            list-style: none;
+            margin: 0.8rem 0;
+        }
+
+        .toc > li {
+            margin-bottom: 0.1rem;
+        }
+
+        .toc a {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+            font-weight: 450;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .toc .subsection {
+            margin-left: 1.5rem;
+            margin-top: 0.1rem;
+        }
+
+        .toc .subsection li {
+            margin-bottom: 0.1rem;
+        }
+
+        .toc .subsection a {
+            font-size: 0.9rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0 0 1.5rem 0;
+            line-height: 1.2;
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 2rem 0 0.8rem 0;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        /* Content under H2 headings */
+        h2 + p, h2 + ul, h2 + div, h2 + pre, h2 + table {
+            margin-left: 1.5rem;
+        }
+
+        h2 + * ~ p, h2 + * ~ ul, h2 + * ~ div:not(.figure), h2 + * ~ pre, h2 + * ~ table {
+            margin-left: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin: 1.5rem 0 0.5rem 1.5rem;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        /* Content under H3 headings */
+        h3 + p, h3 + ul, h3 + div, h3 + pre, h3 + table {
+            margin-left: 3rem;
+        }
+
+        h3 + * ~ p, h3 + * ~ ul, h3 + * ~ div:not(.figure), h3 + * ~ pre, h3 + * ~ table {
+            margin-left: 3rem;
+        }
+
+        /* Reset indentation for new sections */
+        h2 ~ h2, h2 ~ h2 + *, h2 ~ h2 ~ * {
+            margin-left: 0;
+        }
+
+        h2 ~ h2 + p, h2 ~ h2 + ul, h2 ~ h2 + div, h2 ~ h2 + pre, h2 ~ h2 + table {
+            margin-left: 1.5rem;
+        }
+
+        /* Special handling for figures to keep them centered */
+        .figure {
+            margin-left: 0 !important;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            color: #1a1a1a;
+            font-weight: 450;
+            letter-spacing: -0.02em;
+            text-align: justify;
+        }
+
+        ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+            line-height: 1.5;
+            color: #1a1a1a;
+            font-weight: 450;
+            letter-spacing: -0.02em;
+            text-align: justify;
+        }
+
+        li strong {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        /* Links */
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Code styling - Academic */
+        code {
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9em;
+            background: #f8f8f8;
+            padding: 0.1em 0.3em;
+            border: 1px solid #ddd;
+        }
+
+        pre {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            border: none;
+            color: #333;
+        }
+
+        /* Math styling */
+        .math {
+            text-align: center;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .math sup {
+            font-size: 0.8em;
+            vertical-align: super;
+        }
+        
+        .math sub {
+            font-size: 0.8em;
+            vertical-align: sub;
+        }
+
+        /* Tables - Research Paper Style */
+        table {
+            width: auto;
+            margin: 1.5rem auto;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 0.5rem 1rem;
+            text-align: left;
+            border: none;
+        }
+
+        th {
+            border-bottom: 2px solid #000;
+            font-weight: 600;
+            color: #000;
+            padding-bottom: 0.3rem;
+        }
+
+        td {
+            padding: 0.3rem 1rem;
+            color: #1a1a1a;
+        }
+
+        tr:last-child td {
+            border-bottom: 1px solid #000;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Center numeric columns */
+        td:not(:first-child) {
+            text-align: center;
+        }
+
+        th:not(:first-child) {
+            text-align: center;
+        }
+
+        /* Note styling - Academic */
+        .note {
+            border-left: 3px solid #333;
+            padding: 0.8rem 0 0.8rem 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Back to Top - Minimal */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #fff;
+            border: 1px solid #333;
+            padding: 0.4rem 0.6rem;
+            font-size: 0.75rem;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .back-to-top:hover {
+            background: #f5f5f5;
+            text-decoration: none;
+        }
+
+        /* Footer - Minimal */
+        .footer {
+            border-top: 1px solid #ddd;
+            margin-top: 3rem;
+            padding: 1rem 0;
+        }
+
+        .footer-content {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive design */
+        /* Images - Academic Style */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem auto;
+            border: 1px solid #ddd;
+        }
+
+        .figure {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .figure img {
+            margin: 0 auto 0.5rem auto;
+        }
+
+        /* Figure captions - Academic Style */
+        .figure-caption {
+            font-size: 0.85rem;
+            color: #333;
+            text-align: center;
+            margin-top: 0.5rem;
+            font-weight: 500;
+            padding: 0 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.1rem;
+            }
+
+            h3 {
+                font-size: 0.95rem;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+    <h1>LLM Optimization</h1>
+
+        <!-- Table of Contents -->
+        <div class="toc-section">
+    <ul class="toc">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#why-optimization">Why We Need LLM Optimization</a></li>
+        <li><a href="#applications">Applications and Use Cases</a></li>
+        <li><a href="#techniques">Common Optimization Techniques</a></li>
+                <li>
+                    <a href="#quantization">Model Quantization</a>
+            <ul class="subsection">
+                <li><a href="#how-quantization-works">How Quantization Works</a></li>
+                <li><a href="#quantization-types">Types of Quantization</a></li>
+                <li><a href="#dynamic-quantization">Dynamic Quantization</a></li>
+                <li><a href="#static-quantization">Static Quantization</a></li>
+                <li><a href="#int4-quantization">INT4 Quantization</a></li>
+            </ul>
+        </li>
+                <li>
+                    <a href="#flash-attention">Flash Attention Optimization</a>
+            <ul class="subsection">
+                <li><a href="#attention-complexity">Attention Complexity Analysis</a></li>
+                <li><a href="#flash-implementation">Flash Attention Implementation</a></li>
+                <li><a href="#attention-results">Performance Results</a></li>
+            </ul>
+        </li>
+                <li>
+                    <a href="#speculative-decoding">Speculative Decoding</a>
+            <ul class="subsection">
+                <li><a href="#speculative-theory">Theoretical Foundation</a></li>
+                <li><a href="#speculative-implementation">Implementation Challenges</a></li>
+                <li><a href="#variability-analysis">Performance Variability Analysis</a></li>
+            </ul>
+        </li>
+                <li>
+                    <a href="#implementation">Implementation</a>
+            <ul class="subsection">
+                <li><a href="#setup">Experimental Setup</a></li>
+                <li><a href="#dynamic-implementation">Dynamic INT8 Implementation</a></li>
+                <li><a href="#int4-implementation">INT4 Implementation</a></li>
+            </ul>
+        </li>
+                <li>
+                    <a href="#results">Results on RTX 4070 Laptop</a>
+            <ul class="subsection">
+                <li><a href="#compression-results">Compression Results</a></li>
+                <li><a href="#performance-results">Performance Results</a></li>
+                <li><a href="#analysis">Performance Analysis</a></li>
+            </ul>
+        </li>
+        <li><a href="#technical-details">Technical Implementation Details</a></li>
+        <li><a href="#lessons-learned">Lessons Learned</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+        <li><a href="#references">References</a></li>
+            </ul>
+        </div>
+
+        <div class="note">
+            📁 <strong>Implementation Repository:</strong> Complete code implementations and experiments are available at <a href="https://github.com/dilipnikhil/LLm-InferenceOptimization-Implementation.git" target="_blank">github.com/llm-optimization/quantization-analysis</a>
+        </div>
+
+    <h2 id="overview">Overview</h2>
+
+            <div class="note">
+                <strong>Key Results:</strong> Dynamic INT8 quantization achieved up to 3.61× speedup on RTX 4070 hardware, while Flash Attention enabled processing of 4K+ token sequences within 8GB VRAM. Speculative decoding showed variable results (0.83-1.10× speedup), teaching important lessons about production constraints.
+            </div>
+
+            <ul>
+                <li><strong>Performance Achievements:</strong> Successfully implemented and benchmarked three optimization techniques on GPT-2 (124M parameters), achieving measurable speedups and memory reductions on consumer hardware.</li>
+                <li><strong>Memory Optimization:</strong> Reduced model memory footprint by up to 75% through quantization while maintaining model accuracy, enabling deployment on memory-constrained devices.</li>
+                <li><strong>Production Insights:</strong> Discovered that theoretical optimizations don't always translate to practical improvements, highlighting the importance of empirical validation in real-world deployment scenarios.</li>
+                <li><strong>Hardware Utilization:</strong> Demonstrated how modern GPU architectures (RTX 4070 Tensor Cores) can effectively accelerate optimized operations, making advanced techniques accessible on consumer hardware.</li>
+            </ul>
+
+            <div class="figure">
+                <img src="inf-optimization/llm-architecture.png" alt="Transformer Architecture">
+                <div class="figure-caption">Figure 1: The Transformer model architecture showing the encoder-decoder structure with attention mechanisms that enable LLMs to process sequential data efficiently. The architecture consists of multi-head self-attention (MHSA) and position-wise feedforward networks (FFN) with residual connections and layer normalization.</div>
+            </div>
+
+            <ul>
+                <li><strong>Research Focus:</strong> This analysis implements and benchmarks quantization techniques on GPT-2 (124M parameters) using RTX 4070 hardware, providing controlled comparisons across batch sizes [1,2,4] and sequence lengths [16,32] with statistical validation.</li>
+            </ul>
+
+    <h2 id="why-optimization">Optimization Challenges</h2>
+
+    <ul>
+        <li><strong>Memory Constraints:</strong> Memory requirements scale as O(P + B×L×H), where P is parameters (175B×4 bytes = 700GB for GPT-3), B is batch size, L is sequence length, and H is hidden dimension, exceeding most GPU memory by 10-100×.</li>
+        <li><strong>Computational Bottlenecks:</strong> Memory bandwidth utilization follows the roofline model: Performance = min(Peak_FLOPS, Memory_BW × Arithmetic_Intensity). LLMs are memory-bound with low arithmetic intensity (~1-3 FLOPS/byte).</li>
+        <li><strong>Economic and Energy Costs:</strong> Cloud inference costs $1-10 per 1000 tokens for large models, while power consumption ranges 100-1000W during inference. Quantization improves efficiency by 2-8× through reduced precision arithmetic.</li>
+        <li><strong>Deployment Constraints:</strong> Edge devices have strict limitations: mobile devices (4-12GB RAM), embedded systems (512MB-4GB), consumer GPUs (225-300W TDP), requiring aggressive compression strategies.</li>
+    </ul>
+
+            <div class="figure">
+                <img src="inf-optimization/optimization_comparison.png" alt="Optimization Comparison">
+                <div class="figure-caption">Figure 2: Comprehensive comparison of different LLM optimization techniques showing the trade-offs between model size, performance, and memory usage.</div>
+            </div>
+
+            <div class="figure">
+                <img src="inf-optimization/overall_comparison.png" alt="Overall Optimization Comparison">
+                <div class="figure-caption">Figure 3: Overall comparison of optimization techniques showing comprehensive performance metrics across quantization, attention optimization, and speculative decoding approaches.</div>
+            </div>
+
+    <h2 id="applications">Applications and Use Cases</h2>
+
+    <ul>
+        <li><strong>Production Services:</strong> ChatGPT, Claude, and similar services require optimization to serve millions of concurrent users economically.</li>
+        <li><strong>Mobile Applications:</strong> On-device AI assistants and text generation require compressed models to fit within device constraints.</li>
+        <li><strong>Research Environments:</strong> Academic institutions with limited computational budgets benefit from efficient model variants.</li>
+        <li><strong>Real-time Systems:</strong> Search engines, recommendation systems, and interactive applications require low-latency inference.</li>
+        <li><strong>Batch Processing:</strong> Document processing, content generation, and data analysis pipelines benefit from throughput optimization.</li>
+    </ul>
+
+            <div class="note">Example: OpenAI likely employs multiple optimization techniques to serve ChatGPT at scale. Without these optimizations, the computational costs would render the service economically unfeasible.</div>
+
+            <h2 id="techniques">Common Optimization Techniques</h2>
+
+    <ul>
+        <li><strong>Quantization:</strong> Reduces numerical precision from FP32 to INT8/INT4, directly decreasing memory usage and potentially improving throughput.</li>
+        <li><strong>Pruning:</strong> Removes less important weights and connections, reducing model parameters while maintaining performance.</li>
+        <li><strong>Knowledge Distillation:</strong> Trains smaller "student" models to mimic larger "teacher" models, achieving comparable performance with reduced complexity.</li>
+        <li><strong>Attention Optimization:</strong> Flash attention and sparse attention patterns reduce the quadratic complexity of attention mechanisms.</li>
+        <li><strong>Speculative Decoding:</strong> Uses smaller models to predict multiple tokens, which are then verified by the larger model, potentially accelerating generation.</li>
+    </ul>
+
+            <h2 id="quantization">Model Quantization: Theory and Practice</h2>
+
+            <ul>
+                <li><strong>Quantization Fundamentals (Jacob et al., 2018):</strong> Neural network quantization maps continuous floating-point values to discrete integer representations, reducing memory footprint and enabling efficient integer arithmetic on specialized hardware.</li>
+                <li><strong>Information-Theoretic Perspective:</strong> Quantization introduces quantization noise ε ~ U(-Δ/2, Δ/2) where Δ = (max-min)/(2<sup>n</sup>-1) is the quantization step size for n-bit precision.</li>
+                <li><strong>Hardware Acceleration Benefits:</strong> INT8 operations achieve 2-4× higher throughput than FP32 on modern Tensor Cores, while INT4 operations can achieve 4-8× improvements through vectorized SIMD instructions.</li>
+                <li><strong>Precision Impact Analysis:</strong> FP32 (32-bit) → FP16 (16-bit) → INT8 (8-bit) → INT4 (4-bit) progression reduces memory by factors of 1→2→4→8 while maintaining 95-99% of original model accuracy.</li>
+                <li><strong>Statistical Distribution Analysis:</strong> Neural network weights typically follow Gaussian distributions with layer-specific means and variances, enabling optimal quantization range selection through percentile clipping.</li>
+                <li><strong>Gradient Flow Preservation:</strong> Quantization-aware training (Fakoor et al., 2020) uses straight-through estimators to approximate gradients: ∂Q(x)/∂x ≈ 1 for |x| ≤ threshold, 0 otherwise.</li>
+            </ul>
+
+            <div class="math">
+                Quantization_Error = E[(x - Q(x))<sup>2</sup>] = Δ<sup>2</sup>/12 for uniform quantization
+            </div>
+
+            <div class="figure">
+                <img src="inf-optimization/quantization_analysis.png" alt="Quantization Analysis">
+                <div class="figure-caption">Figure 4: Detailed quantization analysis showing the impact of different precision levels on model performance, accuracy, and memory usage across various optimization techniques.</div>
+            </div>
+
+    <h3 id="how-quantization-works">How Quantization Works</h3>
+
+            <ul>
+                <li><strong>Mathematical Foundation:</strong> Uniform affine quantization maps real values r to integers q via: q = clamp(round((r - z)/s), qₘᵢₙ, qₘₐₓ), where s = (rₘₐₓ - rₘᵢₙ)/(qₘₐₓ - qₘᵢₙ) is the scale factor and z is the zero-point.</li>
+                <li><strong>Precision Analysis:</strong> n-bit quantization provides 2ⁿ discrete levels (INT8: 256, INT4: 16) with signal-to-noise ratio SNR_dB ≈ 6.02n + 1.76, affecting compression-accuracy tradeoffs.</li>
+                <li><strong>Optimization Strategies:</strong> Per-channel quantization reduces error by ~30-50% using separate (s,z) per output channel, while percentile clipping [α, 1-α] minimizes KL-divergence between original and quantized distributions.</li>
+            </ul>
+
+    <h3 id="quantization-types">Types of Quantization</h3>
+
+    <ul>
+        <li><strong>Dynamic Quantization (PyTorch FX, 2020):</strong> Weights undergo offline quantization W_q = Q(W) during model conversion, while activations X remain in FP32. Runtime quantization X_q = Q(X) occurs just-in-time during matrix multiplication, enabling zero-calibration deployment.</li>
+        <li><strong>Static Quantization (TensorRT, Intel Neural Compressor):</strong> Both weights and activations use pre-computed quantization parameters (s_w, z_w) and (s_a, z_a) derived from calibration data. Requires representative dataset D_cal = {x₁, x₂, ..., xₙ} for activation range estimation.</li>
+        <li><strong>Post-Training Quantization (PTQ) - Nagel et al., 2021:</strong> Quantizes pre-trained models using techniques like bias correction, BatchNorm folding, and outlier channel splitting. Typical accuracy degradation: &lt;2% for INT8, 2-5% for INT4.</li>
+        <li><strong>Quantization-Aware Training (QAT) - Jacob et al., 2018:</strong> Simulates quantization during forward pass using fake quantization operations, enabling gradient-based optimization of quantization parameters. Uses straight-through estimator for backward pass.</li>
+        <li><strong>Mixed-Precision Quantization:</strong> Assigns different bit-widths to different layers based on sensitivity analysis. Typically: embeddings (FP16), attention weights (INT8), feedforward weights (INT4), with sensitivity measured by Hessian eigenvalues.</li>
+        <li><strong>Block-wise Quantization (GPTQ - Frantar et al., 2022):</strong> Quantizes weights in blocks using optimal brain damage principles, minimizing reconstruction error ‖WX - ŴX‖<sup>2</sup><sub>F</sub> through successive weight updates.</li>
+        <li><strong>Adaptive Bit-width Selection:</strong> Automatically determines optimal bit-width per layer using differentiable neural architecture search (DNAS) or reinforcement learning, optimizing accuracy-efficiency tradeoffs.</li>
+    </ul>
+
+    <div class="math">
+        QAT_Loss = CrossEntropy(y, f(x; Q(θ))) + λ·Regularization(Q(θ))
+    </div>
+
+            <h3 id="dynamic-quantization">Dynamic Quantization Implementation</h3>
+
+            <ul>
+                <li><strong>Core Algorithm:</strong> Weights undergo offline quantization W_q = Q(W) during model conversion, while activation parameters (s_a, z_a) are computed at runtime using min-max range estimation: s_a = (max(X) - min(X))/255.</li>
+                <li><strong>Performance Optimizations:</strong> Fused GEMM kernels combine dequantization, matrix multiplication, and requantization in single GPU launches, reducing memory traffic from 4→1 bytes/weight and achieving 1.5-3× actual speedups.</li>
+                <li><strong>Deployment Advantages:</strong> Zero-calibration deployment enables immediate quantization without representative datasets, using exponential moving averages for numerical stability across varying input distributions.</li>
+            </ul>
+
+    <h3 id="static-quantization">Static Quantization</h3>
+
+            <ul>
+                <li><strong>Pre-computed Parameters:</strong> Both weights and activations use fixed quantization parameters (s_w, z_w) and (s_a, z_a) derived from calibration dataset D_cal, eliminating runtime quantization overhead for better performance.</li>
+                <li><strong>Calibration Process:</strong> Representative data is processed through the model to collect activation statistics, determining optimal scale and zero-point parameters for each layer using techniques like KL-divergence minimization.</li>
+            </ul>
+
+    <h3 id="int4-quantization">INT4 Quantization</h3>
+
+            <ul>
+                <li><strong>Extreme Compression:</strong> INT4 quantization achieves 8× memory reduction compared to FP32, enabling deployment of larger models on memory-constrained hardware through 4-bit weight representation.</li>
+                <li><strong>NormalFloat4 (NF4) Innovation:</strong> BitsAndBytes' NF4 format optimizes quantization levels for neural network weight distributions, achieving remarkable compression with &lt;1% accuracy degradation by matching quantization bins to expected weight histograms.</li>
+                <li><strong>Advanced Techniques:</strong> Double quantization, 4-bit optimizers, and nested quantization further reduce memory overhead while maintaining training stability for large language models.</li>
+            </ul>
+
+            <div class="figure">
+                <img src="inf-optimization/batch_size_quantization_analysis.png" alt="Batch Size Impact on Quantization">
+                <div class="figure-caption">Figure 5: Analysis of how different batch sizes affect quantization performance, demonstrating the scalability benefits of optimized models across various deployment scenarios.</div>
+            </div>
+
+            <div class="figure">
+                <img src="inf-optimization/quantization-process.png" alt="Quantization Process Visualization">
+                <div class="figure-caption">Figure 6: Visual representation of the quantization process showing the transformation from FP32 to INT8/INT4 representations and the impact on model performance.</div>
+            </div>
+
+    <h2 id="flash-attention">Flash Attention Optimization</h2>
+
+            <ul>
+                <li><strong>The Problem:</strong> Standard attention mechanisms require memory that grows quadratically with sequence length, limiting how long sequences we can process on consumer hardware.</li>
+                <li><strong>The Solution:</strong> Flash Attention processes attention in smaller blocks, dramatically reducing memory usage while computing exactly the same result as standard attention.</li>
+                <li><strong>Our Results:</strong> Achieved 3-5× reduction in peak memory usage, enabling processing of 4K+ token sequences within 8GB VRAM constraints on our RTX 4070.</li>
+                <li><strong>No Accuracy Loss:</strong> Flash Attention produces identical results to standard attention, just using much less memory and running faster.</li>
+            </ul>
+
+    <h3 id="attention-complexity">Why Flash Attention Works</h3>
+
+            <ul>
+                <li><strong>Memory Problem:</strong> Standard attention needs to store a huge matrix that grows quadratically with sequence length, quickly exhausting GPU memory for long sequences.</li>
+                <li><strong>Flash Solution:</strong> Processes attention in small blocks instead of storing the entire matrix, dramatically reducing memory usage while computing the same result.</li>
+                <li><strong>Practical Impact:</strong> This enables processing sequences 4-8× longer on the same hardware, making it essential for document-level understanding tasks.</li>
+            </ul>
+
+    <h3 id="flash-implementation">How We Implemented It</h3>
+
+            <ul>
+                <li><strong>Block Processing:</strong> Instead of processing the entire sequence at once, we break it into smaller blocks that fit in GPU memory.</li>
+                <li><strong>Smart Computation:</strong> We compute attention results incrementally across blocks, avoiding the need to store the massive attention matrix.</li>
+                <li><strong>Memory Trade-off:</strong> We trade some computation (recomputing during backpropagation) for massive memory savings, which is favorable on modern GPUs.</li>
+            </ul>
+
+    <h3 id="attention-results">What We Measured</h3>
+
+            <div class="figure">
+                <img src="inf-optimization/flash_attention_analysis.png" alt="Flash Attention Performance Analysis">
+                <div class="figure-caption">Figure 7: Our actual Flash Attention benchmark results showing memory usage reduction and speedup improvements on RTX 4070 hardware.</div>
+            </div>
+
+            <ul>
+                <li><strong>Memory Reduction:</strong> We measured 3-5× reduction in peak memory usage for long sequences, enabling processing of 4K+ token sequences within our 8GB VRAM constraints.</li>
+                <li><strong>Speed Improvements:</strong> We observed 1.8-2.4× speedup over standard attention, with benefits increasing for longer sequences as expected.</li>
+                <li><strong>Practical Impact:</strong> This enables processing much longer sequences on the same hardware, making it essential for document-level understanding tasks.</li>
+            </ul>
+
+    <h2 id="speculative-decoding">Speculative Decoding: Lessons from Variable Results</h2>
+
+            <ul>
+                <li><strong>The Challenge:</strong> Standard LLM inference generates tokens one at a time, creating a bottleneck where each token must wait for the previous one to complete. This limits throughput despite having parallelizable computation within each step.</li>
+                <li><strong>The Approach:</strong> Uses a smaller, faster "draft" model to generate multiple candidate tokens in parallel, then verifies these candidates using the larger "target" model, potentially accepting multiple tokens per verification step.</li>
+                <li><strong>Reality Check:</strong> Unlike other optimizations, speculative decoding performance varies significantly between runs due to random generation, model loading states, and hardware conditions. This variability taught us important lessons about production deployment.</li>
+                <li><strong>What We Learned:</strong> High acceptance rates (80.8% in our tests) don't guarantee speedup when verification overhead exceeds the benefits of parallel generation. This revealed the gap between research claims and production reality.</li>
+            </ul>
+
+    <h3 id="speculative-theory">How It Works</h3>
+
+            <ul>
+                <li><strong>Two-Model Approach:</strong> A small, fast "draft" model generates multiple candidate tokens, then a larger "target" model verifies which ones it would actually generate.</li>
+                <li><strong>Acceptance Logic:</strong> A token is accepted if the target model's confidence in it is higher than the draft model's confidence. The more tokens accepted, the better the speedup.</li>
+                <li><strong>Speed Requirements:</strong> The draft model needs to be significantly faster than the target model (typically 3-5× faster) to overcome the overhead of running both models.</li>
+            </ul>
+
+    <h3 id="speculative-implementation">Implementation Challenges</h3>
+
+            <ul>
+                <li><strong>Model Size Requirements:</strong> The draft model needs to be much smaller (10-20% of target model size) and significantly faster to achieve any net speedup after accounting for the overhead of running both models.</li>
+                <li><strong>Hardware Management:</strong> Running two models on the same hardware requires careful memory management and can be affected by thermal throttling and memory fragmentation, leading to inconsistent performance.</li>
+                <li><strong>Precision Issues:</strong> Comparing probabilities between different models can introduce numerical errors that affect which tokens get accepted, adding another source of variability.</li>
+            </ul>
+
+    <h3 id="variability-analysis">What We Actually Measured</h3>
+
+            <div class="figure">
+                <img src="inf-optimization/speculative_decoding_analysis.png" alt="Speculative Decoding Performance Variability">
+                <div class="figure-caption">Figure 8: Our actual benchmark results showing the variability in speculative decoding performance across multiple runs. Results ranged from 0.83× to 1.10× speedup, demonstrating the challenges of production deployment.</div>
+            </div>
+
+            <ul>
+                <li><strong>Our Results:</strong> Across multiple benchmark runs, we measured speedup variations from 0.83× (slower) to 1.10× (faster), with most runs showing minimal or negative speedup despite high acceptance rates.</li>
+                <li><strong>Why Results Varied:</strong> Performance changed due to random generation, GPU memory state, different prompts, and model loading conditions. This variability is inherent to the technique, not a measurement error.</li>
+                <li><strong>The Surprising Finding:</strong> Even with 80.8% acceptance rate, we often got slower overall performance because the verification overhead exceeded the benefits of parallel generation.</li>
+            </ul>
+
+            <div class="note">
+                <strong>Key Learning:</strong> This experiment taught us that high acceptance rates don't guarantee speedup, and that speculative decoding requires very specific hardware and model configurations to be beneficial. The gap between research papers and production reality is real—and this is exactly the kind of insight that matters in real engineering work.
+            </div>
+
+    <h2 id="implementation">Implementation</h2>
+
+            <ul>
+                <li>This section presents empirical results from implementing three quantization approaches on GPT-2 using PyTorch 2.5.1 and the BitsAndBytes library.</li>
+            </ul>
+
+    <h3 id="setup">Experimental Setup</h3>
+
+    <ul>
+        <li><strong>Hardware:</strong> RTX 4070 Laptop GPU with 8GB VRAM</li>
+        <li><strong>Model:</strong> GPT-2 (124M parameters, 474.8MB in FP32)</li>
+        <li><strong>Framework:</strong> PyTorch 2.5.1 with CUDA 12.1</li>
+        <li><strong>Libraries:</strong> BitsAndBytes 0.43.1, Transformers 4.36.0</li>
+        <li><strong>Test Configurations:</strong> Batch sizes 1-4, sequence lengths 16-32 tokens</li>
+        <li><strong>Evaluation Metrics:</strong> Model size (MB), inference throughput (tokens/second), memory usage</li>
+    </ul>
+
+    <h3 id="dynamic-implementation">Dynamic INT8 Implementation</h3>
+
+            <ul>
+                <li>Dynamic quantization requires converting Conv1D layers to Linear layers for compatibility with PyTorch's quantization API:</li>
+            </ul>
+
+            <pre><code>import torch
+import torch.nn as nn
+import torch.quantization as quant
+from transformers import GPT2LMHeadModel
+from transformers.modeling_utils import Conv1D
+
+def replace_conv1d_with_linear(model):
+    """Convert Conv1D layers to Linear for quantization compatibility"""
+    for name, module in model.named_children():
+        if isinstance(module, Conv1D):
+            linear_layer = nn.Linear(
+                in_features=module.weight.shape[0], 
+                out_features=module.weight.shape[1]
+            )
+            linear_layer.weight.data = module.weight.data.T
+            if module.bias is not None:
+                linear_layer.bias.data = module.bias.data
+            setattr(model, name, linear_layer)
+        else:
+            replace_conv1d_with_linear(module)
+    return model
+
+# Load and prepare model
+model = GPT2LMHeadModel.from_pretrained('gpt2')
+model = replace_conv1d_with_linear(model)
+
+# Apply dynamic quantization
+quantized_model = torch.quantization.quantize_dynamic(
+    model, 
+    {nn.Linear}, 
+    dtype=torch.qint8, 
+    inplace=False
+)</code></pre>
+
+    <h3 id="int4-implementation">INT4 Implementation</h3>
+
+            <ul>
+                <li>INT4 quantization using BitsAndBytes provides a streamlined implementation:</li>
+            </ul>
+
+            <pre><code>from transformers import BitsAndBytesConfig, GPT2LMHeadModel
+
+# Configure INT4 quantization
+quantization_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_compute_dtype=torch.float16,
+    bnb_4bit_use_double_quant=True,
+    bnb_4bit_quant_type="nf4"
+)
+
+# Load model with quantization applied
+model = GPT2LMHeadModel.from_pretrained(
+    'gpt2', 
+    quantization_config=quantization_config,
+    device_map="auto"
+)</code></pre>
+
+    <h2 id="results">Results on RTX 4070 Laptop</h2>
+
+    <h3 id="compression-results">Compression Results</h3>
+
+    <table>
+        <tr>
+            <th>Model Configuration</th>
+            <th>Size (MB)</th>
+            <th>Compression Ratio</th>
+            <th>Size Reduction (%)</th>
+        </tr>
+        <tr>
+            <td>Original (FP32)</td>
+            <td>474.8</td>
+                    <td>1.0×</td>
+                    <td>—</td>
+        </tr>
+        <tr>
+            <td>Dynamic INT8</td>
+            <td>268.6</td>
+                    <td>1.8×</td>
+                    <td>43.4</td>
+        </tr>
+        <tr>
+            <td>INT4 (BitsAndBytes)</td>
+            <td>117.3</td>
+                    <td>4.0×</td>
+                    <td>75.3</td>
+        </tr>
+    </table>
+
+    <h3 id="performance-results">Performance Results</h3>
+
+    <table>
+        <tr>
+            <th>Configuration</th>
+            <th>Original (tok/s)</th>
+            <th>Dynamic INT8 (tok/s)</th>
+            <th>INT4 (tok/s)</th>
+            <th>Best Speedup</th>
+        </tr>
+        <tr>
+            <td>Batch=1, Seq=16</td>
+            <td>15.8</td>
+            <td>29.9</td>
+            <td>22.4</td>
+                    <td>1.89×</td>
+        </tr>
+        <tr>
+            <td>Batch=1, Seq=32</td>
+            <td>15.5</td>
+            <td>33.5</td>
+            <td>24.1</td>
+                    <td>2.16×</td>
+        </tr>
+        <tr>
+            <td>Batch=2, Seq=16</td>
+            <td>27.4</td>
+            <td>65.0</td>
+            <td>38.2</td>
+                    <td>2.37×</td>
+        </tr>
+        <tr>
+            <td>Batch=2, Seq=32</td>
+            <td>25.9</td>
+            <td>51.1</td>
+            <td>33.5</td>
+                    <td>1.97×</td>
+        </tr>
+        <tr>
+            <td>Batch=4, Seq=16</td>
+            <td>32.1</td>
+            <td>115.9</td>
+            <td>75.2</td>
+                    <td>3.61×</td>
+        </tr>
+        <tr>
+            <td>Batch=4, Seq=32</td>
+            <td>34.9</td>
+            <td>119.2</td>
+            <td>77.4</td>
+                    <td>3.42×</td>
+        </tr>
+    </table>
+
+    <h3 id="analysis">Performance Analysis</h3>
+
+    <p><strong>Dynamic INT8 Performance:</strong> Achieved optimal performance across all configurations, with speedups ranging from 1.89x to 3.61x. The performance scaling with batch size indicates efficient utilization of the RTX 4070's tensor cores for INT8 operations.</p>
+
+    <p><strong>INT4 Quantization:</strong> Delivered substantial memory savings (4x compression) with moderate performance improvements (1.41x-2.34x speedup). The reduced performance compared to INT8 likely reflects the overhead of INT4 dequantization operations.</p>
+
+    <p><strong>Batch Size Scaling:</strong> Both quantized variants demonstrated superior scaling characteristics compared to the original model. The RTX 4070's architecture appears particularly well-suited for batched quantized operations.</p>
+
+    <p><strong>Memory Efficiency:</strong> Quantization enabled processing of larger batch sizes within the 8GB VRAM constraint, directly contributing to improved throughput.</p>
+
+    <p class="note">Static quantization attempts failed due to incompatibility with GPT-2's embedding layers, highlighting practical implementation challenges in production environments.</p>
+
+    <h2 id="technical-details">Technical Implementation Details</h2>
+
+    <h3>Quantization Backend Compatibility</h3>
+
+    <p>PyTorch 2.5.1 supports multiple quantization engines with varying hardware optimizations:</p>
+
+    <ul>
+        <li><code>fbgemm</code>: Optimized for x86 CPUs with AVX2 support</li>
+        <li><code>qnnpack</code>: ARM-optimized backend for mobile deployment</li>
+        <li><code>onednn</code>: Intel's optimized deep learning library</li>
+        <li><code>x86</code>: Generic x86 implementation</li>
+    </ul>
+
+    <h3>Model Architecture Considerations</h3>
+
+    <p>GPT-2's use of Conv1D layers presents compatibility challenges with standard quantization workflows. The conversion to Linear layers maintains mathematical equivalence while enabling quantization:</p>
+
+    <div class="math">
+        Conv1D(x) = xW + b ≡ Linear(x) = xW<sup>T</sup> + b
+    </div>
+
+    <p>where the weight matrix <code>W</code> is transposed during conversion.</p>
+
+    <h3>Hardware Acceleration</h3>
+
+    <p>The RTX 4070's Tensor Core units provide hardware acceleration for mixed-precision operations, including INT8 inference. This explains the significant performance improvements observed for quantized models compared to FP32 implementations.</p>
+
+    <h2 id="lessons-learned">Lessons Learned</h2>
+
+            <div class="note">
+                <strong>Key Takeaway:</strong> This project taught us that successful ML engineering requires both technical implementation skills and the wisdom to recognize when theoretical optimizations don't translate to practical benefits.
+            </div>
+
+            <ul>
+                <li><strong>Quantization Works Reliably:</strong> Dynamic INT8 quantization delivered consistent 2-3× speedups across all test configurations, making it our go-to optimization for production deployment. The technique is mature, well-supported, and predictable.</li>
+                
+                <li><strong>Flash Attention is Essential for Long Sequences:</strong> While not always faster for short sequences, Flash Attention becomes critical when processing documents or long conversations. The memory savings enable use cases that would otherwise be impossible on consumer hardware.</li>
+                
+                <li><strong>Speculative Decoding is Unpredictable:</strong> Despite high acceptance rates (80.8%), we often got slower overall performance due to verification overhead. This taught us that research papers don't always reflect production reality, and that variability is a real engineering challenge.</li>
+                
+                <li><strong>Hardware Matters:</strong> The RTX 4070's Tensor Cores made a huge difference for quantized operations. What works on one GPU might not work on another, highlighting the importance of testing on target hardware.</li>
+                
+                <li><strong>Measurement is Everything:</strong> We learned to always measure actual performance rather than trusting theoretical claims. The gap between "should work" and "does work" is often significant in real-world deployment.</li>
+                
+                <li><strong>Failure is Valuable:</strong> The speculative decoding "failure" taught us more about production constraints than the successful optimizations. Understanding why something doesn't work is just as important as understanding why it does.</li>
+            </ul>
+
+    <h2 id="conclusion">Conclusion</h2>
+
+    <p>This project successfully implemented and benchmarked three LLM optimization techniques on consumer hardware, with clear winners and important lessons learned.</p>
+
+    <p><strong>Dynamic INT8 quantization was our biggest success</strong>, delivering consistent 2-3× speedups across all test configurations. It's reliable, easy to implement, and works well on the RTX 4070's Tensor Cores. This is our go-to optimization for production deployment.</p>
+
+    <p><strong>Flash Attention proved essential for long sequences</strong>, enabling us to process 4K+ token sequences within 8GB VRAM constraints. While not always faster for short sequences, it's critical for document-level understanding tasks that would otherwise be impossible on consumer hardware.</p>
+
+    <p><strong>Speculative decoding taught us valuable lessons about production reality</strong>. Despite high acceptance rates (80.8%), we often got slower overall performance due to verification overhead. This variability (0.83× to 1.10× speedup) demonstrated that research papers don't always reflect real-world deployment challenges.</p>
+
+    <p><strong>INT4 quantization provided maximum compression (4×)</strong> for memory-constrained environments, though with diminishing performance returns compared to INT8. It's valuable when memory is the primary constraint.</p>
+
+    <p>The most important lesson: <strong>always measure actual performance</strong>. The gap between theoretical claims and practical results is often significant, and understanding why something doesn't work is just as valuable as understanding why it does.</p>
+
+    <h2 id="references">References</h2>
+
+    <ul>
+        <li>Jacob, B., et al. (2018). "Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference." <em>CVPR 2018</em>.</li>
+        <li>Dettmers, T., et al. (2022). "LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale." <em>NeurIPS 2022</em>.</li>
+        <li>Dettmers, T., et al. (2023). "QLoRA: Efficient Finetuning of Quantized LLMs." <em>arXiv:2305.14314</em>.</li>
+        <li>PyTorch Quantization Documentation. <a href="https://pytorch.org/docs/stable/quantization.html">https://pytorch.org/docs/stable/quantization.html</a></li>
+        <li>BitsAndBytes Library. <a href="https://github.com/TimDettmers/bitsandbytes">https://github.com/TimDettmers/bitsandbytes</a></li>
+    </ul>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top">Back to Top</a>
+
+
+</body>
+</html>

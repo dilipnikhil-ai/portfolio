@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Response Multi-Agent System: Revolutionizing 911 Operations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "SF Pro Text", "Myriad Set Pro", "SF Pro Icons", "Helvetica Neue", "Helvetica", sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #fff;
+            font-size: 16px;
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+            letter-spacing: -0.015em;
+        }
+
+
+        /* Main Layout */
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 2rem 2rem;
+        }
+
+        /* Table of Contents */
+        .toc-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .toc {
+            list-style: none;
+            margin: 0.8rem 0;
+        }
+
+        .toc > li {
+            margin-bottom: 0.1rem;
+        }
+
+        .toc a {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+            font-weight: 450;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .toc .subsection {
+            margin-left: 1.5rem;
+            margin-top: 0.1rem;
+        }
+
+        .toc .subsection li {
+            margin-bottom: 0.1rem;
+        }
+
+        .toc .subsection a {
+            font-size: 0.9rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0 0 1.5rem 0;
+            line-height: 1.2;
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 2rem 0 0.8rem 0;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        /* Content under H2 headings */
+        h2 + p, h2 + ul, h2 + div, h2 + pre, h2 + table {
+            margin-left: 1.5rem;
+        }
+
+        h2 + * ~ p, h2 + * ~ ul, h2 + * ~ div:not(.figure), h2 + * ~ pre, h2 + * ~ table {
+            margin-left: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin: 1.5rem 0 0.5rem 1.5rem;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        /* Content under H3 headings */
+        h3 + p, h3 + ul, h3 + div, h3 + pre, h3 + table {
+            margin-left: 3rem;
+        }
+
+        h3 + * ~ p, h3 + * ~ ul, h3 + * ~ div:not(.figure), h3 + * ~ pre, h3 + * ~ table {
+            margin-left: 3rem;
+        }
+
+        /* Reset indentation for new sections */
+        h2 ~ h2, h2 ~ h2 + *, h2 ~ h2 ~ * {
+            margin-left: 0;
+        }
+
+        h2 ~ h2 + p, h2 ~ h2 + ul, h2 ~ h2 + div, h2 ~ h2 + pre, h2 ~ h2 + table {
+            margin-left: 1.5rem;
+        }
+
+        /* Special handling for figures to keep them centered */
+        .figure {
+            margin-left: 0 !important;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            color: #1a1a1a;
+            font-weight: 450;
+            letter-spacing: -0.02em;
+            text-align: justify;
+        }
+
+        ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+            line-height: 1.5;
+            color: #1a1a1a;
+            font-weight: 450;
+            letter-spacing: -0.02em;
+            text-align: justify;
+        }
+
+        li strong {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        /* Links */
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Code styling - Enhanced */
+        code {
+            font-family: 'Fira Code', 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 0.9em;
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        pre {
+            background: #2d3748;
+            border: 1px solid #4a5568;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            border: none;
+            color: #e2e8f0;
+            font-weight: 400;
+        }
+
+        /* Syntax highlighting colors */
+        pre code .keyword {
+            color: #81c784;
+            font-weight: 600;
+        }
+
+        pre code .string {
+            color: #ffb74d;
+        }
+
+        pre code .comment {
+            color: #90a4ae;
+            font-style: italic;
+        }
+
+        pre code .function {
+            color: #64b5f6;
+        }
+
+        /* Math styling */
+        .math {
+            text-align: center;
+            font-style: italic;
+            margin: 0.8rem 0;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        /* Tables - Research Paper Style */
+        table {
+            width: auto;
+            margin: 1.5rem auto;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 0.5rem 1rem;
+            text-align: left;
+            border: none;
+        }
+
+        th {
+            border-bottom: 2px solid #000;
+            font-weight: 600;
+            color: #000;
+            padding-bottom: 0.3rem;
+        }
+
+        td {
+            padding: 0.3rem 1rem;
+            color: #1a1a1a;
+        }
+
+        tr:last-child td {
+            border-bottom: 1px solid #000;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Center numeric columns */
+        td:not(:first-child) {
+            text-align: center;
+        }
+
+        th:not(:first-child) {
+            text-align: center;
+        }
+
+        /* Note styling - Academic */
+        .note {
+            border-left: 3px solid #333;
+            padding: 0.8rem 0 0.8rem 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Back to Top - Minimal */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #fff;
+            border: 1px solid #333;
+            padding: 0.4rem 0.6rem;
+            font-size: 0.75rem;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .back-to-top:hover {
+            background: #f5f5f5;
+            text-decoration: none;
+        }
+
+        /* Footer - Minimal */
+        .footer {
+            border-top: 1px solid #ddd;
+            margin-top: 3rem;
+            padding: 1rem 0;
+        }
+
+        .footer-content {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive design */
+        /* Images - Academic Style */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem auto;
+            border: 1px solid #ddd;
+        }
+
+        .figure {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .figure img {
+            margin: 0 auto 0.5rem auto;
+        }
+
+        /* Figure captions - Academic Style */
+        .figure-caption {
+            font-size: 0.85rem;
+            color: #333;
+            text-align: center;
+            margin-top: 0.5rem;
+            font-weight: 500;
+            padding: 0 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.1rem;
+            }
+
+            h3 {
+                font-size: 0.95rem;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Horizontal scrolling gallery */
+        .image-gallery {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            padding: 1rem 0;
+            margin: 1.5rem 0;
+        }
+
+        .image-gallery::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .image-gallery::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .image-gallery::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .image-gallery::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .gallery-item {
+            flex: 0 0 auto;
+            width: 300px;
+            text-align: center;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-caption {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Image modal styles */
+        .gallery-item img {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 60px 20px 20px 20px;
+            box-sizing: border-box;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 70vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #ccc;
+        }
+
+        .modal-caption {
+            text-align: center;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            max-width: 90%;
+            margin-top: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+    <h1>Emergency Response Multi-Agent System: Revolutionizing 911 Operations During Tornado Disasters</h1>
+
+        <!-- Table of Contents -->
+        <div class="toc-section">
+    <ul class="toc">
+        <li><a href="#overview">Project Overview</a></li>
+        <li><a href="#problem-statement">Problem Statement</a></li>
+        <li><a href="#system-architecture">System Architecture</a></li>
+        <li><a href="#multi-agent-framework">Multi-Agent Framework</a></li>
+                <li>
+                    <a href="#data-processing">Data Processing Pipeline</a>
+            <ul class="subsection">
+                <li><a href="#call-generation">Emergency Call Generation</a></li>
+                <li><a href="#ai-processing">AI-Powered Analysis</a></li>
+                <li><a href="#consolidation">Event Consolidation</a></li>
+            </ul>
+        </li>
+                <li>
+                    <a href="#orchestrator">Orchestrator Agent</a>
+            <ul class="subsection">
+                <li><a href="#task-management">Task Management</a></li>
+                <li><a href="#resource-allocation">Resource Allocation</a></li>
+                <li><a href="#dispatch-coordination">Dispatch Coordination</a></li>
+            </ul>
+        </li>
+                <li>
+                    <a href="#specialized-agents">Specialized Response Agents</a>
+            <ul class="subsection">
+                <li><a href="#police-agent">Police Response Agent</a></li>
+                <li><a href="#fire-agent">Fire Department Agent</a></li>
+                <li><a href="#medical-agent">Medical Response Agent</a></li>
+            </ul>
+        </li>
+        <li><a href="#frontend-dashboard">Frontend Dashboard</a></li>
+        <li><a href="#database-architecture">Database Architecture</a></li>
+        <li><a href="#tornado-simulation">Tornado Simulation Scenario</a></li>
+        <li><a href="#technical-stack">Technical Implementation</a></li>
+        <li><a href="#future-enhancements">Future Enhancements</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+        </div>
+
+        <div class="note">
+            🚨 <strong>Hackathon Project:</strong> This emergency response system was developed during a hackathon at Indiana University, simulating tornado disaster scenarios in Bloomington. The project demonstrates how AI-powered multi-agent systems can revolutionize emergency response operations.
+        </div>
+
+    <h2 id="overview">Project Overview</h2>
+
+            <p>During disasters like tornadoes, 911 call centers become overwhelmed, leading to delayed responses. Our AI-powered multi-agent system addresses this by automating emergency call analysis, coordinating Police/Fire/Medical resources, and providing real-time dispatch optimization for Bloomington, Indiana.</p>
+
+            <ul>
+                <li><strong>AI Call Processing:</strong> Automatically extracts emergency type, severity, location, and resource needs from 911 calls.</li>
+                <li><strong>Multi-Agent Coordination:</strong> Police, Fire, and Medical AI agents collaborate for optimal resource allocation.</li>
+                <li><strong>Real-Time Dashboard:</strong> Interactive map with color-coded incidents and resource tracking.</li>
+                <li><strong>Auto-Dispatch:</strong> 60-second operator window, then automatic resource deployment.</li>
+                <li><strong>Smart Consolidation:</strong> Groups similar incidents within 100m radius to prevent duplication.</li>
+            </ul>
+
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <img src="multi-agent/operator_Screen.jpg" alt="Operator Interface">
+                    <div class="gallery-caption">Operator control interface for emergency management and multi-agent coordination</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="multi-agent/image.png" alt="Multi-Agent Architecture">
+                    <div class="gallery-caption">Multi-Agent System Architecture showing the orchestrator and specialized response agents</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="multi-agent/middle_agent.png" alt="Agent Workflow">
+                    <div class="gallery-caption">An Overview of the end to end workflow</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="multi-agent/dashboard1.jpg" alt="System Dashboard">
+                    <div class="gallery-caption">Real-time emergency response dashboard showing active incidents and resource allocation</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="multi-agent/resolved_incidents.jpg" alt="Resolved Incidents">
+                    <div class="gallery-caption">Completed emergency responses showing system effectiveness and outcome tracking</div>
+                </div>
+            </div>
+
+    <h2 id="problem-statement">Problem Statement</h2>
+
+    <p>Traditional 911 systems fail during disasters due to:</p>
+
+    <ul>
+        <li><strong>Call Overload:</strong> 10-50× normal call volumes overwhelm operators.</li>
+        <li><strong>Resource Coordination:</strong> Complex multi-agency coordination exceeds human capacity under stress.</li>
+        <li><strong>Information Processing:</strong> Extracting critical data from panicked calls takes too long.</li>
+        <li><strong>Geographic Optimization:</strong> Finding nearest resources while considering traffic/weather is complex.</li>
+        <li><strong>Priority Assessment:</strong> Inconsistent severity evaluation across operators.</li>
+    </ul>
+
+    <div class="note">
+        <strong>Impact:</strong> Reducing response times by 1 minute improves survival rates by 7-10% for cardiac arrests and 15-20% for trauma cases.
+    </div>
+
+    <h2 id="system-architecture">System Architecture</h2>
+
+    <p>Multi-layered architecture for emergency response coordination:</p>
+
+    <ul>
+        <li><strong>AI Processing:</strong> GPT-4o-mini analyzes 911 calls and extracts metadata.</li>
+        <li><strong>LangGraph Orchestrator:</strong> Coordinates workflow between specialized agents.</li>
+        <li><strong>Response Agents:</strong> Police, Fire, Medical agents generate action plans.</li>
+        <li><strong>Geospatial System:</strong> MongoDB proximity analysis for optimal resource dispatch.</li>
+        <li><strong>React Dashboard:</strong> Real-time visualization with Google Maps integration.</li>
+        <li><strong>API Layer:</strong> Node.js/Express RESTful endpoints for system coordination.</li>
+    </ul>
+
+    <div class="figure">
+        <img src="multi-agent/middle_agent.png" alt="System Architecture Diagram">
+        <div class="figure-caption">Figure 1: System architecture flow from emergency call processing to coordinated response deployment.</div>
+    </div>
+
+    <h2 id="multi-agent-framework">Multi-Agent Framework</h2>
+
+    <p>LangGraph-based framework enabling coordinated AI decision-making across emergency services:</p>
+
+    <ul>
+        <li><strong>Orchestrator Agent:</strong> Central coordinator managing workflow and resource allocation.</li>
+        <li><strong>Specialized Agents:</strong> Police, Fire, Medical domain experts with specific knowledge.</li>
+        <li><strong>Shared State:</strong> Common incident data, location, and resource availability.</li>
+        <li><strong>Parallel Processing:</strong> Simultaneous analysis from multiple perspectives.</li>
+        <li><strong>Dynamic Workflow:</strong> Adapts based on incident type (fire+injuries = Fire+Medical).</li>
+        <li><strong>Persistent Storage:</strong> MongoDB checkpoint integration for recovery.</li>
+    </ul>
+
+    <div class="figure">
+        <img src="multi-agent/orchestrator-execution.png" alt="Multi-Agent Workflow">
+        <div class="figure-caption">Figure 2: Multi-agent coordination generating comprehensive action plans.</div>
+    </div>
+
+    <h2 id="data-processing">Data Processing Pipeline</h2>
+
+    <p>Transforms raw 911 calls into actionable intelligence through AI analysis and event consolidation.</p>
+
+    <h3 id="call-generation">Emergency Call Generation</h3>
+
+    <p>Realistic tornado simulation data for testing:</p>
+
+    <ul>
+        <li><strong>100+ Scenarios:</strong> Medical, fire, and police emergencies with natural language variation.</li>
+        <li><strong>Geographic Accuracy:</strong> Real Bloomington addresses using Faker + Nominatim geocoding.</li>
+        <li><strong>Realistic Speech:</strong> Emotional states, filler words, ambient details.</li>
+        <li><strong>Temporal Patterns:</strong> Triangular distribution simulating disaster progression.</li>
+    </ul>
+
+    <h3 id="ai-processing">AI Analysis</h3>
+
+    <p>GPT-4o-mini extracts critical metadata from unstructured call descriptions:</p>
+
+    <ul>
+        <li><strong>Classification:</strong> Emergency type (police/medical/fire), severity (low/medium/high/critical).</li>
+        <li><strong>Extraction:</strong> People affected, location, required resources, keywords.</li>
+        <li><strong>Validation:</strong> Edge case handling (e.g., "accident" → "medical").</li>
+    </ul>
+
+    <h3 id="consolidation">Event Consolidation</h3>
+
+    <p>Intelligent grouping prevents resource duplication:</p>
+
+    <ul>
+        <li><strong>Geographic:</strong> 100m radius clustering using geospatial analysis.</li>
+        <li><strong>Temporal:</strong> 60-minute windows for related incidents.</li>
+        <li><strong>Priority Escalation:</strong> 5+ calls = medium, 10+ calls = high priority.</li>
+        <li><strong>History Tracking:</strong> Preserves all individual call descriptions.</li>
+    </ul>
+
+    <h2 id="orchestrator">Orchestrator Agent</h2>
+
+    <p>Central coordinator managing multi-agent workflow and resource allocation.</p>
+
+    <div class="figure">
+        <video width="100%" height="400" controls preload="metadata" poster="media/operator_Screen.jpg">
+            <source src="multi-agent/orchestrator.mp4" type="video/mp4">
+            Your browser does not support the video tag. Please use a modern browser to view this demonstration.
+        </video>
+        <div class="figure-caption">Video Demo: 5-minute demonstration of multi-agent coordination showing Police, Fire, and Medical agents working in parallel. <em></em></div>
+    </div>
+
+    <h3 id="task-management">Task Management</h3>
+
+    <ul>
+        <li><strong>Service Selection:</strong> GPT-4o-mini determines required services (Police/Medical/Fire/combinations).</li>
+        <li><strong>Dynamic Routing:</strong> LangGraph Send mechanism routes tasks to appropriate agents.</li>
+        <li><strong>Priority Processing:</strong> Higher priority incidents get immediate attention.</li>
+        <li><strong>Multi-Service Coordination:</strong> Complex incidents activate multiple agents simultaneously.</li>
+    </ul>
+
+    <h3 id="resource-allocation">Resource Allocation</h3>
+
+    <ul>
+        <li><strong>Geospatial Optimization:</strong> Haversine distance calculations for closest available resources.</li>
+        <li><strong>Cross-Service Coordination:</strong> Prevents resource conflicts between agencies.</li>
+        <li><strong>Capacity Management:</strong> Tracks unit availability across all services.</li>
+        <li><strong>Real-Time Updates:</strong> Live database connections for current availability.</li>
+    </ul>
+
+    <h3 id="dispatch-coordination">Dispatch Coordination</h3>
+
+    <ul>
+        <li><strong>Plan Synthesis:</strong> Combines Police/Fire/Medical recommendations into unified dispatch.</li>
+        <li><strong>Standardized Format:</strong> Scan-friendly instructions for operators.</li>
+        <li><strong>Auto-Integration:</strong> Updates incident status and provides tracking URLs.</li>
+        <li><strong>Quality Validation:</strong> Ensures all required services are included.</li>
+    </ul>
+
+    <h2 id="specialized-agents">Specialized Response Agents</h2>
+
+    <p>Domain-specific AI agents for Police, Fire, and Medical emergency response planning.</p>
+
+    <h3 id="police-agent">Police Agent</h3>
+
+    <ul>
+        <li><strong>Threat Assessment:</strong> Minor/Moderate/Major/Extreme severity classification.</li>
+        <li><strong>Unit Deployment:</strong> Patrol Cars (1-8+), SWAT, K9, Negotiation, Traffic Control, Air Support.</li>
+        <li><strong>Tactical Planning:</strong> Scenario-specific requirements (perimeter, forensics, pursuits).</li>
+        <li><strong>Resource Optimization:</strong> Real-time availability and response time constraints.</li>
+    </ul>
+
+    <h3 id="fire-agent">Fire Department Agent</h3>
+
+    <ul>
+        <li><strong>Fire Classification:</strong> Minor/Moderate/Major/Extreme based on scope and hazards.</li>
+        <li><strong>Equipment Deployment:</strong> Fire Trucks (1-6+), Ladder Trucks, Hazmat, Water Tenders, Command Units.</li>
+        <li><strong>Scenario Adaptation:</strong> High-rise (ladder trucks), wildfire (water tenders), industrial (hazmat).</li>
+        <li><strong>Safety Protocols:</strong> Appropriate equipment for hazardous environments.</li>
+    </ul>
+
+    <h3 id="medical-agent">Medical Response Agent</h3>
+
+    <ul>
+        <li><strong>Medical Triage:</strong> Minor/Moderate/Major/Extreme patient classification.</li>
+        <li><strong>Resource Allocation:</strong> Ambulances (1-8+), ALS Units, Medical Helicopters, Specialized Teams.</li>
+        <li><strong>Clinical Priorities:</strong> Cardiac arrests (ALS), trauma (specialized teams), mass casualties (triage).</li>
+        <li><strong>Transport Coordination:</strong> Appropriate facilities based on injury severity and capacity.</li>
+    </ul>
+
+    <h2 id="frontend-dashboard">Frontend Dashboard</h2>
+
+    <p>The React-based frontend provides emergency operators with a real-time interface for monitoring disaster response operations in Bloomington.</p>
+
+    <ul>
+        <li><strong>Interactive Map:</strong> Google Maps integration with real-time incident markers and emergency resource locations.</li>
+        <li><strong>Live Updates:</strong> Dashboard refreshes every 3 seconds with color-coded emergency markers by type and severity.</li>
+        <li><strong>Analytics Charts:</strong> Emergency call volumes, incident patterns, and resource utilization using Recharts.</li>
+        <li><strong>Incident Management:</strong> Click markers for detailed information and consolidated event histories.</li>
+        <li><strong>Resource Tracking:</strong> Real-time availability of hospitals, fire departments, and police units.</li>
+        <li><strong>Responsive Design:</strong> Mobile-friendly interface for field operations.</li>
+    </ul>
+
+
+    <p><strong>Key Components:</strong></p>
+
+    <ul>
+        <li><strong>FetchMapPoints:</strong> Polls backend API for real-time incident updates.</li>
+        <li><strong>IncidentMarker:</strong> Custom map markers with severity indicators and emergency type icons.</li>
+        <li><strong>Dashboard:</strong> Analytics charts for Police, Fire, and Medical incidents.</li>
+        <li><strong>EmergencyBoard:</strong> Top 10 emergency call types with live counts.</li>
+        <li><strong>SideBoard:</strong> Active incident list with direct links to detailed pages.</li>
+    </ul>
+
+    <div class="image-gallery">
+        <div class="gallery-item">
+            <img src="multi-agent/dashboard1.jpg" alt="Emergency Response Dashboard">
+            <div class="gallery-caption">Primary emergency response dashboard showing real-time incident tracking and resource allocation</div>
+        </div>
+        <div class="gallery-item">
+            <img src="multi-agent/dasboard2.jpg" alt="Analytics Dashboard">
+            <div class="gallery-caption">Advanced analytics dashboard displaying emergency call patterns and response metrics</div>
+        </div>
+        <div class="gallery-item">
+            <img src="multi-agent/operator_Screen.jpg" alt="Operator Interface">
+            <div class="gallery-caption">Operator control interface for managing emergency incidents and coordinating multi-agent responses</div>
+        </div>
+        <div class="gallery-item">
+            <img src="multi-agent/resolved_incidents.jpg" alt="Resolved Incidents View">
+            <div class="gallery-caption">Resolved incidents tracking showing completed emergency responses and outcome analysis</div>
+        </div>
+    </div>
+
+    <h2 id="database-architecture">Database Architecture</h2>
+
+    <p>MongoDB-based architecture with geospatial capabilities for emergency data management.</p>
+
+    <ul>
+        <li><strong>Geospatial Queries:</strong> 2dsphere indexes for proximity searches and nearest resource identification.</li>
+        <li><strong>Dual Collections:</strong> Separate collections for individual calls and consolidated events.</li>
+        <li><strong>Real-Time Updates:</strong> Change streams for live dashboard synchronization.</li>
+        <li><strong>Flexible Schema:</strong> Accommodates varying emergency call formats.</li>
+    </ul>
+
+    <p><strong>Key Features:</strong></p>
+
+    <ul>
+        <li><strong>Event Consolidation:</strong> Groups related incidents using 100m radius and 60-minute windows.</li>
+        <li><strong>Priority Escalation:</strong> Auto-escalates priority based on call volume (5+ calls = medium, 10+ = high).</li>
+        <li><strong>LangGraph Integration:</strong> Persistent state store for multi-agent workflows.</li>
+        <li><strong>RESTful API:</strong> Node.js/Express endpoints for frontend and agent coordination.</li>
+    </ul>
+
+    <h2 id="tornado-simulation">Tornado Simulation Scenario</h2>
+
+    <p>Realistic tornado disaster simulation for Bloomington, Indiana testing system capabilities.</p>
+
+    <ul>
+        <li><strong>Geographic Accuracy:</strong> Bloomington coordinates (39.1653°N, 86.5264°W) with university, downtown, and residential areas.</li>
+        <li><strong>Disaster Progression:</strong> Temporal patterns from weather reports → structural damage → injuries → recovery.</li>
+        <li><strong>Cascading Effects:</strong> Power failures causing fires, structural collapses, debris injuries, communication damage.</li>
+        <li><strong>Resource Constraints:</strong> Limited ambulance/fire/police availability during widespread emergencies.</li>
+        <li><strong>Weather Impact:</strong> Storms, winds, debris affecting response times and accessibility.</li>
+    </ul>
+
+    <div class="note">
+        <strong>Historical Basis:</strong> Inspired by 2012 Henryville tornado and 1965 Palm Sunday outbreak response lessons.
+    </div>
+
+    <p><strong>Emergency Scenarios:</strong></p>
+
+    <ul>
+        <li><strong>Structural:</strong> Building collapses, tree falls, wall failures.</li>
+        <li><strong>Fire:</strong> Lightning strikes, power line failures, chemical hazards.</li>
+        <li><strong>Medical:</strong> Trauma injuries, glass cuts, falls during evacuation.</li>
+        <li><strong>Public Safety:</strong> Lost children, trapped individuals, flooding.</li>
+    </ul>
+
+    <p><strong>Bloomington-Specific Features:</strong></p>
+
+    <ul>
+        <li><strong>IU Campus:</strong> Student population, dormitories, university emergency protocols.</li>
+        <li><strong>Infrastructure:</strong> Limestone quarries, campus buildings, downtown district.</li>
+        <li><strong>Resources:</strong> IU Health Hospital, Bloomington Fire Department, Monroe County Sheriff.</li>
+        <li><strong>Communication:</strong> Severe weather failure simulation and coordination resilience.</li>
+    </ul>
+
+    <h2 id="technical-stack">Technical Implementation</h2>
+
+    <p>Built with modern AI and web technologies for real-time emergency response.</p>
+
+    <p><strong>Tech Stack:</strong></p>
+
+    <ul>
+        <li><strong>AI:</strong> LangChain/LangGraph for multi-agent coordination, GPT-4o-mini for call analysis.</li>
+        <li><strong>Backend:</strong> Python with Flask API for processing and coordination.</li>
+        <li><strong>Database:</strong> MongoDB with geospatial indexing for proximity searches.</li>
+        <li><strong>Frontend:</strong> React.js + Google Maps + Tailwind CSS + Recharts.</li>
+        <li><strong>API:</strong> Node.js/Express RESTful endpoints.</li>
+    </ul>
+
+    <p><strong>Key Libraries:</strong></p>
+
+    <pre><code># Backend
+langchain, langgraph, openai, pymongo, flask
+
+# Frontend  
+react, @react-google-maps/api, axios, recharts, tailwindcss
+
+# Database
+mongoose, express</code></pre>
+
+    <p><strong>Architecture:</strong></p>
+
+    <ul>
+        <li><strong>Parallel Processing:</strong> Python multiprocessing for high-volume call handling.</li>
+        <li><strong>Real-Time Updates:</strong> WebSocket + HTTP polling for live dashboard.</li>
+        <li><strong>Error Handling:</strong> Retry mechanisms and graceful degradation.</li>
+        <li><strong>Scalability:</strong> Modular design with horizontal scaling support.</li>
+        <li><strong>Security:</strong> CORS, input validation, secure data handling.</li>
+    </ul>
+
+    <h2 id="future-enhancements">Future Enhancements</h2>
+
+    <p>Next steps for real-world deployment and expanded capabilities:</p>
+
+    <ul>
+        <li><strong>911 System Integration:</strong> Connect with existing CAD systems and emergency service databases.</li>
+        <li><strong>Advanced ML Models:</strong> Specialized models for incident prediction and resource optimization.</li>
+        <li><strong>Mobile Apps:</strong> Field applications for first responders and commanders.</li>
+        <li><strong>Predictive Analytics:</strong> Weather-based forecasting and incident pattern recognition.</li>
+        <li><strong>Multi-Jurisdiction:</strong> Regional coordination across county and state boundaries.</li>
+        <li><strong>Voice Processing:</strong> Direct 911 audio analysis with speech-to-text.</li>
+        <li><strong>IoT Integration:</strong> Smart city sensors, cameras, and building systems.</li>
+        <li><strong>Training Modules:</strong> Simulation-based operator and responder training.</li>
+    </ul>
+
+    <h2 id="conclusion">Conclusion</h2>
+
+    <p>AI-powered multi-agent system successfully addresses 911 dispatch challenges during tornado disasters in Bloomington, Indiana.</p>
+
+    <p><strong>Key Results:</strong></p>
+
+    <ul>
+        <li><strong>Automated Analysis:</strong> AI extracts critical info from emergency calls, reducing operator workload.</li>
+        <li><strong>Multi-Agent Coordination:</strong> Police, Fire, Medical agents work together preventing resource conflicts.</li>
+        <li><strong>Real-Time Dashboard:</strong> Interactive map provides immediate situational awareness.</li>
+        <li><strong>Scalable Design:</strong> Modular architecture supports larger deployments and integrations.</li>
+        <li><strong>Proven Technologies:</strong> Built with LangGraph, React, MongoDB for reliable deployment.</li>
+    </ul>
+
+    <p>The system augments human decision-making without replacing critical human judgment. Operators can focus on complex decisions while AI handles routine analysis and coordination.</p>
+
+    <p><strong>Impact:</strong></p>
+
+    <p>Hackathon project demonstrates rapid AI application to real-world problems. Successful tornado simulation shows potential for actual emergency deployment where minutes saved can prevent casualties.</p>
+
+    <h2 id="team-contributions">Team Contributions</h2>
+
+    <p><strong>Dilip Nikhil Francies:</strong></p>
+    <ul>
+        <li>LangChain agent design for emergency call triage, classification, and resource allocation</li>
+        <li>MongoDB database architecture and geospatial indexing design</li>
+        <li>End-to-end system architecture design</li>
+        <li>Analytics dashboard design and data visualization</li>
+        <li>Emergency call data generator with realistic scenarios</li>
+        <li>Smart event tagging and consolidation algorithms</li>
+        <li>Tornado simulation scenario design for Bloomington</li>
+        <li>Project presentation and technical documentation</li>
+        <li>Haversine distance calculations for resource optimization</li>
+        <li>Priority escalation system and event consolidation logic</li>
+    </ul>
+
+    <p><strong>Nischal BK:</strong></p>
+    <ul>
+        <li>Multi-agent orchestrator design using LangGraph</li>
+        <li>Agent coordination and workflow management</li>
+        <li>Video demonstration</li>
+    </ul>
+
+    <p><strong>Prinston Rebello & Sathya NC:</strong></p>
+    <ul>
+        <li>React frontend development and user interface design</li>
+        <li>Google Maps integration and interactive mapping</li>
+        <li>RESTful API design and backend integration</li>
+        <li>Real-time dashboard components and data visualization</li>
+    </ul>
+
+    <div class="note">
+        <strong>Hackathon Project:</strong> Developed at Indiana University hackathon showcasing collaborative innovation in emergency response technology.
+    </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top">Back to Top</a>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="">
+            <div id="modalCaption" class="modal-caption"></div>
+        </div>
+    </div>
+
+    <script>
+        // Image modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            const closeBtn = document.getElementsByClassName('close')[0];
+
+            // Add click event to all gallery images
+            const galleryImages = document.querySelectorAll('.gallery-item img');
+            galleryImages.forEach(function(img) {
+                img.addEventListener('click', function() {
+                    modal.style.display = 'block';
+                    modalImg.src = this.src;
+                    modalImg.alt = this.alt;
+                    modalCaption.textContent = this.nextElementSibling.textContent;
+                });
+            });
+
+            // Close modal when clicking the X
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            // Close modal when clicking outside the image
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'block') {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
