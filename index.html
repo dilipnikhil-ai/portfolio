@@ -4,295 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dilip Nikhil | AI Researcher & Developer</title>
-    <style>
-        /* Base styles */
-        :root {
-            --primary-color: #2d3748;
-            --secondary-color: #4a5568;
-            --accent-color: #5a67d8;
-            --light-bg: #f7fafc;
-            --dark-bg: #1a202c;
-            --text-color: #2d3748;
-            --text-light: #718096;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--light-bg);
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        a {
-            color: var(--accent-color);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        a:hover {
-            color: #4c51bf;
-        }
-        
-        h1, h2, h3 {
-            font-weight: 700;
-            line-height: 1.3;
-        }
-        
-        h2 {
-            font-size: 1.5rem;
-            margin-top: 2.5rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-        
-        /* Profile section */
-        .profile-header {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem; /* Reduce gap */
-            align-items: center;
-            margin-bottom: 1rem; /* Reduce margin-bottom */
-            padding-bottom: 1rem; /* Reduce padding-bottom */
-            border-bottom: 1px solid #e2e8f0;
-            text-align: center; /* Center align text */
-        }
-        
-        @media (min-width: 640px) {
-            .profile-header {
-                flex-direction: column; /* Keep column layout on larger screens */
-            }
-        }
-        
-        .profile-image {
-            flex-shrink: 0;
-        }
-        
-        .profile-image img {
-            width: 200px; /* Adjust width */
-            height: 200px; /* Adjust height */
-            border-radius: 50%; /* Ensure circular shape */
-            object-fit: cover;
-            border: 1px solid white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .profile-info {
-            flex-grow: 1;
-        }
-        
-        .profile-info h1 {
-            font-size: 2.5rem; /* Increase font size */
-            margin-bottom: 0.1rem;
-        }
-        
-        .tagline {
-            font-size: 1.0rem; /* Increase font size */
-            color: var(--text-light);
-            margin-bottom: 1rem;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center; /* Center align */
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .social-links a img {
-            width: 24px;
-            height: 24px;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-        }
-        
-        .social-links a:hover img {
-            opacity: 1;
-        }
-        
-        /* Timeline section - New style from first file */
-        .timeline-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 10px 0;
-        }
-        
-        .timeline {
-            position: relative;
-            padding: 10px 0;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 70px;
-            width: 2px;
-            background-color: #e2e8f0;
-        }
-        
-        .timeline-item {
-            position: relative;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            
-        }
-        
-        .year-label {
-            position: absolute;
-            left: -20px;
-            width: 80px;
-            text-align: right;
-            font-size: 0.9rem;
-            color: #718096;
-            padding-top: 5px;
-        }
-        
-        .dot {
-            position: absolute;
-            left: 70px;
-            transform: translateX(-50%);
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background-color: #cbd5e0;
-            border: 2px solid white;
-            z-index: 2;
-        }
-        
-        .logo-container {
-            margin-left: 85px;
-            width: 90px;
-            height: 90px;
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: white;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .logo-container img {
-            max-width: 80%;
-            max-height: 80%;
-            object-fit: contain;
-        }
-        
-        .content {
-            margin-left: 20px; /* Add space between logo and text */
-            max-width: calc(100% - 175px); /* Keep text from overflowing */
-        }
-        
-        /* Talks section */
-        .talks-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-        
-        .talk img {
-            aspect-ratio: 16/9;
-            object-fit: cover;
-            border-radius: px;
-            margin-bottom: 0.5rem;
-            transition: transform 0.2s;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-        
-        .talk:hover img {
-            transform: translateY(-3px);
-        }
-        
-        .talk-title {
-            font-weight: 500;
-        }
-        
-        /* Teaching section */
-        .teaching {
-            margin-bottom: 3rem;
-        }
-        
-        .videos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-        
-        .video {
-            position: relative;
-        }
-        
-        .video img {
-            aspect-ratio: 16/9;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            transition: transform 0.2s;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-        
-        .video:hover img {
-            transform: translateY(-3px);
-        }
-        
-        .video-duration {
-            position: absolute;
-            bottom: 25px;
-            right: 5px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            font-size: 0.75rem;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-        
-        .video-title {
-            font-weight: 500;
-            font-size: 0.9rem;
-            margin-bottom: 0.25rem;
-        }
-        
-        .video-stats {
-            font-size: 0.75rem;
-            color: var(--text-light);
-        }
-        
-        .course-links {
-            margin-top: 1rem;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 2rem 0;
-            margin-top: 2rem;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -305,73 +17,439 @@
                 <h1>Dilip Nikhil</h1>
                 <p class="tagline">In a quest, to solve problems at scale!!</p>
                 <div class="social-links">
-                    <!-- <a href="https://twitter.com/dilipnikhil" aria-label="Twitter"><img src="images/twitter.png" alt="Twitter"></a> -->
-                    <a href="https://github.com/dilipnikhil" aria-label="GitHub"><img src="images/github.png" alt="GitHub"></a>
-                    <!-- <a href="https://scholar.google.com/citations?user=dilipnikhil" aria-label="Google Scholar"><img src="/api/placeholder/24/24" alt="Google Scholar"></a> -->
-                    <!-- <a href="feed.xml" aria-label="RSS"><img src="/api/placeholder/24/24" alt="RSS"></a> -->
-                    <a href="cv/resume.pdf" download aria-label="Download CV"><img src="images/cv.png" alt="Download CV"> 
-                    <a href="mailto:dfranci@iu.edu" aria-label="Email"><img src="images/email.png" alt="Email"></a>
+                    <a href="https://github.com/dilipnikhil" aria-label="GitHub">GitHub</a>
+                    <a href="resume.html" aria-label="View CV">Resume</a>
+                    <a href="mailto:dfranci@iu.edu" aria-label="Email">Email</a>
+                    <a href="blogs.html" aria-label="Blogs">Blogs</a>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; margin: 18px auto 0 auto; height: 24px;">
+                  <a href="list100.html" style="font-size: 1rem; color: #222; text-decoration: underline; font-family: Georgia, serif;">List 100</a>
                 </div>
             </div>
         </div>
 
-        <!-- Career Timeline - Replaced with new style -->
+        <!-- Enhanced Career Timeline with Monthly Progression -->
         <div class="timeline-container">
+            <h2 style="text-align: center; margin-top: 0.5rem; margin-bottom: 1rem; color: #2d3748;">Career Journey & Professional Growth</h2>
+            
+            <!-- Section Navigation -->
+            <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
+                <a href="#academic-papers" style="font-size: 1rem; color: #222; text-decoration: underline; font-family: Georgia, serif; transition: all 0.2s ease;">Applied Research</a>
+                <a href="#certifications" style="font-size: 1rem; color: #222; text-decoration: underline; font-family: Georgia, serif; transition: all 0.2s ease;">Certifications</a>
+                <a href="#collaborators" style="font-size: 1rem; color: #222; text-decoration: underline; font-family: Georgia, serif; transition: all 0.2s ease;">Collaborations</a>
+                <a href="#testimonials" style="font-size: 1rem; color: #222; text-decoration: underline; font-family: Georgia, serif; transition: all 0.2s ease;">Testimonials</a>
+            </div>
+            
             <div class="timeline">
+                <!-- Current - Computer Vision Research -->
                 <div class="timeline-item">
-                    <div class="year-label">2025 -</div>
+                    <div class="year-label">Apr 2024 - Present</div>
                     <div class="dot"></div>
-                    <div class="logo-container miracle">
-                        <img src="images/miracle.jpg" alt="Future">
+                    <div class="timeline-header">
+                        <div class="logo-container">
+                            <img src="images/combine.jpg" alt="Academic Research Collaboration">
+                        </div>
+                        <div class="timeline-content">
+                            <div class="role-title">Computer Vision ML Engineer</div>
+                            <div class="company-name">IU AI & Economics Research (Luddy, Kelley, Wharton, Yale), Bloomington, IN <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5089827" target="_blank" style="color: #2563eb; text-decoration: underline; font-size: 0.9em; margin-left: 8px;">[Paper]</a></div>
+                            <div class="role-overview">
+                                Leading Big Five personality prediction research in collaboration with business school faculty and Dr. David Crandall (Luddy AI Center Director). Engineered distributed CV pipeline processing 2M+ images using Vision Transformers, ArcFace, and StyleGAN2 across 4 institutions with multi-GPU training (PyTorch DDP, Ray) on HPC infrastructure, establishing MLOps practices while investigating model interpretability, bias, and fairness.
+                            </div>
+                        </div>
                     </div>
-                    <div class="content">
-                        <p>I am currently looking for a new role in a team to drive problem solving at scale at the intersection of human and digital intelligence.</p>
+                    
+                    <div class="monthly-progression">
+                        <div class="milestone-group">
+                            <div class="milestone-period">Large-Scale Facial Analysis Pipeline for Personality Research</div>
+                            <div class="milestone-content">
+                                <p><strong>Impact (what I achieved):</strong></p>
+                                <ul class="milestone-list">
+                                    <li class="milestone-item">Engineered distributed CV pipeline processing 2M+ images using Vision Transformers, ArcFace, and StyleGAN2 for Big Five personality research across 4 institutions</li>
+                                    <li class="milestone-item">Implemented multi-GPU training with PyTorch DDP and Ray on HPC infrastructure, processing 100K+ images with batched inference; established MLOps practices using WandB, Ray Tune, and model versioning</li>
+                                    <li class="milestone-item">Integrated facial embeddings with aesthetic metrics achieving 1.2× improvement in salary/credit prediction accuracy; paper contributing to forthcoming publication</li>
+                                    <li class="milestone-item">Achieved near state-of-the-art performance (R² = 0.28 vs. SOTA = 0.33) on Chalearn First Impressions dataset using only facial images and demographic features</li>
+                                </ul>
+                                
+                                <details>
+                                    <summary>🔧 Technical Details (click to expand)</summary>
+                                    <div class="tech-content">
+                                        <p><strong>Computer Vision Models:</strong> Vision Transformers, ArcFace embeddings, VGGFace2, StyleGAN2 for generative analysis, ResNet50/101, FairFace, EfficientNet</p>
+                                        <p><strong>Distributed Training:</strong> PyTorch DDP multi-GPU training, Ray distributed computing on HPC Slurm clusters, processing 2M+ images</p>
+                                        <p><strong>MLOps Infrastructure:</strong> WandB experiment tracking, Ray Tune hyperparameter optimization, model versioning, automatic error recovery</p>
+                                        <p><strong>Pipeline:</strong> 12-worker face detection with Dlib HOG + 68-landmark alignment, FairFace ResNet34 (race/gender/age classification), batched inference on 500K+ images</p>
+                                    </div>
+                                </details>
+                            </div>
+                            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 10px;">
+                                <a href="images/kelly/face_analysis.png" target="_blank"><img src="images/kelly/face_analysis.png" alt="Facial Analysis Pipeline" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                                <a href="images/kelly/gradcam.jpg" target="_blank"><img src="images/kelly/gradcam.jpg" alt="GradCAM Visualization" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                                <a href="images/kelly/model.png" target="_blank"><img src="images/kelly/model.png" alt="Model Architecture" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                                <a href="images/kelly/img5.png" target="_blank"><img src="images/kelly/img5.png" alt="Research Results" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                                <a href="images/kelly/img1.png" target="_blank"><img src="images/kelly/img1.png" alt="Salary Predictions" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                                <a href="images/kelly/img2.png" target="_blank"><img src="images/kelly/img2.png" alt="Feature Analysis" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
+                <!-- History Department - Multimodal ML Research -->
                 <div class="timeline-item">
-                    <div class="year-label">2023 - 2025</div>
+                    <div class="year-label">May 2024 - Present</div>
                     <div class="dot"></div>
-                    <div class="logo-container iub">
+                    <div class="timeline-header">
+                        <div class="logo-container">
+                            <img src="images/iub.png" alt="Indiana University">
+                        </div>
+                        <div class="timeline-content">
+                            <div class="role-title">Multimodal ML Engineer</div>
+                            <div class="company-name">Indiana University - Department of History, Bloomington, IN</div>
+                            <div class="role-overview">
+                                I am currently leading research on developing deep multimodal computer vision models to predict the Big Five personality traits (OCEAN) at scale, 
+                                in collaboration with top business school faculty and Dr. David Crandall, Director of the Luddy AI Center. In the later stages, 
+                                we plan to investigate interpretability, bias, and fairness of these models, and provide the resulting frameworks and insights as resources for researchers worldwide.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="monthly-progression">
+                        <div class="milestone-group">
+                            <div class="milestone-period">AI-Powered Historical Artifact Retrieval System</div>
+                            <div class="milestone-content">
+                                <p><strong>Impact (what I achieved):</strong></p>
+                                <ul class="milestone-list">
+                                    <li class="milestone-item">Built multimodal search system using DINOv2 and CLIP for 100K+ ivory artifacts, outperforming commercial AI tools in semantic accuracy with sub-second FAISS-based retrieval; deployed on Streamlit for testing Archives of Ivory</li>
+                                    <li class="milestone-item">Developed XRF spectral analysis system achieving 82% accuracy using Random Forest for ivory provenance mapping</li>
+                                    <li class="milestone-item">Automated data collection pipeline scraping 100K+ records across 12 museums using BeautifulSoup4 and Selenium in clean and appropriate manner</li>
+                                </ul>
+                                
+                                <details>
+                                    <summary>🔧 Technical Details (click to expand)</summary>
+                                    <div class="tech-content">
+                                        <p><strong>Multimodal Search:</strong> DINOv2 & CLIP vision transformers for 100K+ artifacts with sub-second FAISS retrieval</p>
+                                        <p><strong>Spectral Analysis:</strong> Random Forest on XRF spectral data achieving 82% accuracy for ivory provenance mapping</p>
+                                        <p><strong>Data Pipeline:</strong> BeautifulSoup4 + Selenium web scraping across 12 museums for 100K+ records</p>
+                                        <p><strong>Deployment:</strong> Streamlit application for Archives of Ivory testing and validation</p>
+                                    </div>
+                                </details>
+                            </div>
+                            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 10px;">
+                                <a href="images/archivesofivory/streamlit-tool.gif" target="_blank"><img src="images/archivesofivory/streamlit-tool.gif" alt="Archives of Ivory Streamlit Tool" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                                <a href="images/archivesofivory/fan-ranking.png" target="_blank"><img src="images/archivesofivory/fan-ranking.png" alt="Archives of Ivory Fan Ranking" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- pamir -->
+                <div class="timeline-item">
+                    <div class="year-label">June 10 - 24, 2025</div>
+                    <div class="dot"></div>
+                    <div class="timeline-header">
+                        <div class="logo-container">
+                            <img src="images/pamir.png" alt="Indiana University">
+                        </div>
+                        <div class="timeline-content">
+                            <div class="role-title">Startup Collaborator</div>
+                            <div class="company-name">PamirAI & FounderHUB</div>
+                            <div class="role-overview">
+                                Intensive 2-week entrepreneurial and technical immersion program combining startup development at PamirAI with founder
+                                 ecosystem engagement at FounderHUB. Built open-source repositories, engineered prompt, built developer tools and 
+                                 participated in high-impact networking and learning opportunities across AI, Vision, Robotics, and Prompt Engineering.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="monthly-progression">
+                        <div class="milestone-group">
+                            <div class="milestone-period">Jun 10-24 | Technical Development at PamirAI</div>
+                            <div class="milestone-content">
+                                <p><strong>Impact (what I achieved):</strong></p>
+                                <ul class="milestone-list">
+                                    <li class="milestone-item">Developed MCP-based tools for robotics control and automation systems while mastering the Model Context Protocol framework from scratch.</li>
+                                    <li class="milestone-item">Gained comprehensive exposure to startup ecosystem dynamics through hands-on workshops, hackathons, product demos and networking with industry professionals.</li>
+                                </ul>
+                                
+                                <details >
+                                    <summary >🔧 Technical Details (click to expand)</summary>
+                                    <div class="tech-content">
+                                        <p><strong>Development:</strong> Development: Built MCP tools for Distiller developer alpha kit enabling programmatic control of servo motors, 
+                                            HuggingFace SO100 Le robots, and camera systems for robotics automation workflows.</p>
+                                        <p><strong>Ecosystem Learning:</strong> Ecosystem Immersion: Attended technical 
+                                            workshops and networking events at AWS Loft, Qualcomm, Lightning AI, Microsoft, and FounderHUB in San Francisco, focusing on startup best practices, edge computing, and AI infrastructure.</p>
+                                        <p><strong>Product Demos:</strong> Demonstrated robotics automation solutions and developer tooling to technical leadership, 
+                                            startup founders, and potential investors, receiving feedback for product iteration.</p>
+                                    </div>
+                                </details>
+                            </div>
+                            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 10px;">
+                                <a href="images/pamir/robot.gif" target="_blank"><img src="images/pamir/robot.gif" alt="PamirAI Robot" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                                <a href="images/pamir/servoMCP.gif" target="_blank"><img src="images/pamir/servoMCP.gif" alt="ServoMCP Development" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                                <a href="images/pamir/s100 robot.gif" target="_blank"><img src="images/pamir/s100 robot.gif" alt="S100 Robot" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                                <a href="images/pamir/pamir-office.jpg" target="_blank"><img src="images/pamir/AWS-Loft.jpg" alt="PamirAI Office" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                            </div>
+                        </div>
+                        
+                        <div class="milestone-group">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Institutional Analytics Position -->
+               <div class="timeline-item">
+                <div class="year-label">Jan 2024 - May 2025</div>
+                <div class="dot"></div>
+                <div class="timeline-header">
+                    <div class="logo-container">
                         <img src="images/iub.png" alt="Indiana University">
                     </div>
-                    <div class="content">
-                        <p><p>I earned my Master’s in <a href="#">Data Science</a> from <a href="#">Indiana University Bloomington</a>, where I gained more than just textbook knowledge. Collaborating with professors, industry leaders, and passionate peers from across the world gave me more than a degree — it gave me the mindset to lead and collaborate effectively in the industry.</p>
+                    <div class="timeline-content">
+                        <div class="role-title">Research & Data Analytics Intern - ML Engineering</div>
+                        <div class="company-name">Indiana University - Institutional Analytics, Bloomington, IN</div>
+                        <div class="role-overview">
+                            Built production NL2SQL systems and explainable AI models for student outcomes, processing 20M+ student records on HPC infrastructure while reducing demographic bias by 75% and delivering insights affecting 40,000+ students
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="monthly-progression">
+                    <div class="milestone-group">
+                        <div class="milestone-period">Natural Language to SQL System with LLM Fine-Tuning</div>
+                        <div class="milestone-content">
+                            <p><strong>Impact (what I achieved):</strong></p>
+                            <ul class="milestone-list">
+                                <li class="milestone-item">Built production NL2SQL system integrating FAISS vector databases with PEFT-tuned models (SQLCoder-7B, LLaMA-3B) using RAG architecture, enabling natural language queries across university data warehouse with 1,000+ tables</li>
+                                <li class="milestone-item">Implemented LoRA fine-tuning reducing training compute 80% while maintaining query accuracy and SQL generation quality</li>
+                                <li class="milestone-item"><a href="https://btaa.org/research/love-data-week/2025-data-viz-championship/student-data-viz-gallery" target="_blank" style="color: #4c51bf; text-decoration: underline;">Winner: Selected to represent Indiana University at Big Ten Data Visualization Championship</a></li>
+                            </ul>
+                            
+                            <details>
+                                <summary>🔧 Technical Details (click to expand)</summary>
+                                <div class="tech-content">
+                                    <p><strong>LLM Architecture:</strong> FAISS vector databases + PEFT-tuned SQLCoder-7B & LLaMA-3B with RAG for 1,000+ table queries</p>
+                                    <p><strong>Fine-Tuning:</strong> LoRA parameter-efficient fine-tuning reducing compute 80% while maintaining accuracy</p>
+                                    <p><strong>Data Visualization:</strong> Interactive dashboards winning Big Ten academic competition</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
 
+                    <div class="milestone-group">
+                        <div class="milestone-period">Explainable AI for Student Outcomes & Fairness Research</div>
+                        <div class="milestone-content">
+                            <p><strong>Impact (what I achieved):</strong></p>
+                            <ul class="milestone-list">
+                                <li class="milestone-item">Developed tree-based predictive models with SHAP analysis identifying key drivers of student success; delivered insights to VP of Student Affairs affecting 40,000+ students; co-authored conference paper on interpretable ML for educational outcomes</li>
+                                <li class="milestone-item">Reduced demographic bias 75% in equalized odds using IBM AIF360, ensuring fair predictions across protected groups</li>
+                                <li class="milestone-item"><a href="https://solar.swoogo.com/lap24/schedule" target="_blank" style="color: #4c51bf; text-decoration: underline;">Presented ML explainability research at LAP Global 2024 SOLAR conference</a></li>
+                            </ul>
+                            
+                            <details>
+                                <summary>🔧 Technical Details (click to expand)</summary>
+                                <div class="tech-content">
+                                    <p><strong>Explainable AI:</strong> Tree-based models with SHAP analysis for student success prediction affecting 40,000+ students</p>
+                                    <p><strong>Fairness & Bias:</strong> IBM AIF360 framework reducing demographic bias 75% in equalized odds across protected groups</p>
+                                    <p><strong>Research Output:</strong> Co-authored conference paper on interpretable ML for educational outcomes</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone-group">
+                        <div class="milestone-period">Scalable ML on HPC Infrastructure</div>
+                        <div class="milestone-content">
+                            <p><strong>Impact (what I achieved):</strong></p>
+                            <ul class="milestone-list">
+                                <li class="milestone-item">Built distributed PyTorch framework on Slurm HPC clusters, accelerating training 3× through optimized parallelization</li>
+                                <li class="milestone-item">Processed 20M+ student records using Dask and variational autoencoders, clustering 16,000 courses with 7% improved silhouette score</li>
+                            </ul>
+                            
+                            <details>
+                                <summary>🔧 Technical Details (click to expand)</summary>
+                                <div class="tech-content">
+                                    <p><strong>HPC Infrastructure:</strong> Distributed PyTorch on Slurm clusters with 3× training acceleration through parallelization</p>
+                                    <p><strong>Big Data Processing:</strong> Dask + variational autoencoders processing 20M+ records, clustering 16K courses with 7% silhouette improvement</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone-group">
+                    </div>
+                        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 10px;">
+                            <a href="images/inst-analytics/shapely.jpg" target="_blank"><img src="images/inst-analytics/shapely.jpg" alt="Shapely Analysis" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                            <a href="https://dilipnikhil.github.io/btaa/" target="_blank"><img src="images/inst-analytics/btaa.jpg" alt="BTAA Analysis" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                        </div>
                     </div>
                 </div>
                 
+                <!-- Indiana University - Graduate Studies -->
                 <div class="timeline-item">
-                    <div class="year-label">2021 - 2023</div>
+                    <div class="year-label">Aug 2023 - May 2025</div>
                     <div class="dot"></div>
-                    <div class="logo-container hexaware">
-                        <img src="images/hexawere.png" alt="Hexaware">
+                    <div class="timeline-header">
+                        <div class="logo-container">
+                            <img src="images/iub.png" alt="Indiana University">
+                        </div>
+                        <div class="timeline-content">
+                            <div class="role-title">Graduate Student - Data Science</div>
+                            <div class="company-name">Indiana University Bloomington</div>
+                            <div class="role-overview">
+                                Completed Master's in Data Science (GPA- 3.84), deepening expertise in machine learning research, statistical modeling, Big Data Analytics , Cloud Computing, and AI system design while transitioning into research leadership roles.
+                            </div>
+                        </div>
                     </div>
-                    <div class="content">
-                        <p>As the sole Senior Data Analyst at <a href="https://hexaware.com/services/data-ai-solutions/">Hexaware</a>, in a team of 6, which is now over 50,  I led and delivered multiple projects across computer vision, NLP, and audio-based domains. This was a defining phase in my career — where I got the chance to interact directly with company leaders, including Vice Presidents and Senior VPs. Presenting my work to them, listening to their feedback, and understanding how they think about software products opened my eyes to a world beyond tools, languages, and code.</p>
+                    
+                    <div class="monthly-progression">
+                        <div class="milestone-group">
+                            <div class="milestone-period">Fall 2023 | Foundation Semester</div>
+                            <ul class="milestone-list">
+                                <li class="milestone-item"><a href="#" style="color: #4c51bf; text-decoration: underline;">Elements of AI</a> - Fundamentals of artificial intelligence concepts and applications</li>
+                                <li class="milestone-item"><a href="#" style="color: #4c51bf; text-decoration: underline;">Introduction to Statistics</a> - Statistical foundations for data science and machine learning</li>
+                                <li class="milestone-item"><a href="#" style="color: #4c51bf; text-decoration: underline;">Applied Machine Learning</a> - Hands-on implementation of ML algorithms and models</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="milestone-group">
+                            <div class="milestone-period">Spring 2024 | Advanced Applications</div>
+                            <ul class="milestone-list">
+                                <li class="milestone-item"><a href="#" style="color: #4c51bf; text-decoration: underline;">Image Processing for Medical Applications</a> - Computer vision techniques for healthcare and medical imaging</li>
+                                <li class="milestone-item"><a href="#" style="color: #4c51bf; text-decoration: underline;">Engineering Cloud Computing</a> - Scalable cloud architectures and distributed systems</li>
+                                <li class="milestone-item"><a href="#" style="color: #4c51bf; text-decoration: underline;">Applied Algorithms</a> - Advanced algorithmic design and analysis for data science applications</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="milestone-group">
+                            <div class="milestone-period">Summer 2024 | Research Experience</div>
+                            <ul class="milestone-list">
+                                <li class="milestone-item"><a href="#" style="color: #4c51bf; text-decoration: underline;">Faculty Assistance Data Science</a> - Research collaboration and advanced data science projects</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="milestone-group">
+                            <div class="milestone-period">Fall 2024 | Specialized Systems</div>
+                            <ul class="milestone-list">
+                                <li class="milestone-item"><a href="#" style="color: #4c51bf; text-decoration: underline;">Deep Learning Systems</a> - Advanced neural networks and deep learning architectures</li>
+                                <li class="milestone-item"><a href="#" style="color: #4c51bf; text-decoration: underline;">Big Data Analytics</a> - Large-scale data processing and analytics frameworks</li>
+                                <li class="milestone-item"><a href="#" style="color: #4c51bf; text-decoration: underline;">Scientific Visualization</a> - Data visualization techniques for scientific computing</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="milestone-group">
+                            <div class="milestone-period">Spring 2025 | Capstone & Research</div>
+                            <ul class="milestone-list">
+                                <li class="milestone-item"><a href="#" style="color: #4c51bf; text-decoration: underline;">Computer Science Colloquium</a> - Advanced research presentations and academic discourse</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- <div class="timeline-item">
-                    <div class="year-label">2020 - 2021</div>
-                    <div class="dot"></div>
-                    <div class="logo-container bbmp">
-                        <img src="images/bbmp.png" alt="BBMP">
-                    </div>
-                    <div class="content">
-                        <p>Worked as a <a href="#">Civil Contractor</a> handling multiple end-to-end projects under <a href="#">BBMP, Bengaluru</a>, collaborating closely with the state government of India.</p>
-                        <p>Volunteered during the COVID-19 pandemic to help patients and people in need access rations and immunizations.</p>
-                    </div>
-                </div> -->
                 
+                <!-- Hexaware - Senior Machine Learning Engineer -->
                 <div class="timeline-item">
-                    <div class="year-label">2017 - 2019</div>
+                    <div class="year-label">Nov 2021 - Jul 2023</div>
                     <div class="dot"></div>
-                    <div class="logo-container accenture">
-                        <img src="images/acc.png" alt="Accenture">
+                    <div class="timeline-header">
+                        <div class="logo-container">
+                            <img src="images/hexawere.png" alt="Hexaware">
+                        </div>
+                        <div class="timeline-content">
+                            <div class="role-title">Senior Data Analyst → Machine Learning</div>
+                            <div class="company-name">Hexaware Technologies, Mumbai, India</div>
+                            <div class="role-overview">
+                                Architected enterprise-scale ML systems serving 2,000+ employees, leading cloud infrastructure strategy and full-stack development while achieving $500K+ annual savings through automated AI solutions
+                            </div>
+                        </div>
                     </div>
-                    <div class="content">
-                        Accenture Solutions was my stepping stone into the world of digital intelligence after graduation. While the work I did then was simpler compared to what I do now, every minute was fascinating. It sparked a deep curiosity in me about machine intelligence and set me on a path to explore a wide range of fields — from cognitive psychology and deep learning to quantum computing and bayesian statistics.</p>
+                    
+                    <div class="monthly-progression">
+                        <div class="milestone-group">
+                            <div class="milestone-period">Enterprise ML Authentication & Monitoring Platform</div>
+                            <div class="milestone-content">
+                                <p><strong>Impact (what I achieved):</strong></p>
+                                <ul class="milestone-list">
+                                    <li class="milestone-item">Architected end-to-end ML system serving 2,000+ employees for secure workspace monitoring, achieving $500K+ annual savings through automated policy enforcement with 99% facial recognition accuracy and 92% object detection accuracy</li>
+                                    <li class="milestone-item">Optimized production deployment with 93% model compression (467MB → 30MB) using TensorRT and TensorFlow Lite quantization (INT8/FP16), enabling edge deployment across 2,000 devices with <200ms latency for 10K+ daily authentications</li>
+                                    <li class="milestone-item">Led cloud infrastructure strategy with Docker + TensorFlow Serving on AWS ECS; conducted A/B testing proving edge deployment reduced latency 3× and infrastructure costs 80% vs cloud solution</li>
+                                    <li class="milestone-item">Built full-stack React dashboard with 30+ FastAPI endpoints for real-time monitoring; designed MongoDB Atlas schema supporting 2,000+ concurrent users; implemented GitHub → Heroku CI/CD pipeline</li>
+                                    <li class="milestone-item"><strong>Recognition:</strong> Hexaware ACE Award for exceptional technical contribution beyond role expectations</li>
+                                </ul>
+                                
+                                <details>
+                                    <summary>🔧 Technical Details (click to expand)</summary>
+                                    <div class="tech-content">
+                                        <p><strong>Computer Vision Models:</strong> YOLOv3/v5 for object detection, Siamese Networks for face recognition with 99% accuracy</p>
+                                        <p><strong>Model Optimization:</strong> TensorRT INT8/FP16 quantization, TensorFlow Lite conversion, 93% model compression</p>
+                                        <p><strong>Infrastructure:</strong> Docker + TensorFlow Serving on AWS ECS, edge deployment architecture, A/B testing framework</p>
+                                        <p><strong>Full-Stack Development:</strong> React dashboard, 30+ FastAPI endpoints, MongoDB Atlas schema design, GitHub CI/CD to Heroku</p>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+                        
+                        <div class="milestone-group">
+                            <div class="milestone-period">Audio Analytics Intelligence Platform</div>
+                            <div class="milestone-content">
+                                <p><strong>Impact (what I achieved):</strong></p>
+                                <ul class="milestone-list">
+                                    <li class="milestone-item">Engineered serverless ML pipeline processing call center recordings at scale using AWS Lambda, S3, Transcribe, and AssemblyAI for automated sentiment analysis, delivering actionable customer insights</li>
+                                    <li class="milestone-item">Designed FastAPI microservices and MongoDB schema; managed AWS IAM, cost optimization, and service architecture</li>
+                                    <li class="milestone-item"><strong>Recognition:</strong> Hexaware Yuva Award for innovative customer analytics solution</li>
+                                </ul>
+                                
+                                <details>
+                                    <summary>🔧 Technical Details (click to expand)</summary>
+                                    <div class="tech-content">
+                                        <p><strong>Serverless Architecture:</strong> AWS Lambda + S3 + Transcribe + AssemblyAI for scalable audio processing</p>
+                                        <p><strong>NLP & Analytics:</strong> Automated sentiment analysis, customer insights extraction</p>
+                                        <p><strong>Backend Services:</strong> FastAPI microservices, MongoDB schema design</p>
+                                        <p><strong>AWS Management:</strong> IAM configuration, cost optimization strategies, service architecture design</p>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Accenture - Entry Level -->
+                <div class="timeline-item">
+                    <div class="year-label">Jan 2017 - Sep 2019</div>
+                    <div class="dot"></div>
+                    <div class="timeline-header">
+                        <div class="logo-container">
+                            <img src="images/acc.png" alt="Accenture">
+                        </div>
+                        <div class="timeline-content">
+                            <div class="role-title">Application Development Analyst → Machine Learning</div>
+                            <div class="company-name">Accenture Solutions</div>
+                            <div class="role-overview">
+                                Foundation that cultivated teamwork skills, ignited curiosity about ML at scale, and provided practical framework experience that guided my career progression into specialized ML engineering roles
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="monthly-progression">
+                        <div class="milestone-group">
+                            <div class="milestone-period">NLP & Machine Learning Development</div>
+                            <div class="milestone-content">
+                                <p><strong>Impact (what I achieved):</strong></p>
+                                <ul class="milestone-list">
+                                    <li class="milestone-item">Developed ensemble classifier (Naive Bayes, LDA, XGBoost) achieving F1-score of 0.73 for automated ticket routing, reducing manual effort by 40%</li>
+                                    <li class="milestone-item"><strong>Recognition:</strong> Accenture Celebrate Excellence Award (ACE Award) for showcasing leadership and innovation</li>
+                                    <li class="milestone-item"><strong>Recognition:</strong> Selected for exclusive Accenture My Passion Club membership for exceptional performance</li>
+                                </ul>
+                                
+                                <details>
+                                    <summary>🔧 Technical Details (click to expand)</summary>
+                                    <div class="tech-content">
+                                        <p><strong>NLP Ticket Classification:</strong> Ensemble model combining Naive Bayes, LDA, and XGBoost for automated ticket routing with F1-score of 0.73</p>
+                                        <p><strong>Programming Languages:</strong> Intensive training in Java and SQL for enterprise application development</p>
+                                    </div>
+                                </details>
+                            </div>
+                            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 10px;">
+                                <a href="certifications/mypassion.png" target="_blank"><img src="certifications/mypassion.png" alt="Accenture My Passion Club" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                                <a href="certifications/ACE-award.png" target="_blank"><img src="certifications/ACE-award.png" alt="Accenture ACE Award" style="width: 140px; height: 100px; object-fit: cover;"></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -384,41 +462,41 @@
                 
                 <div class="talks-grid">
                     <div class="talk">
-                        <a href="./research_papers/alzheimers.pdf">
+                        <a href="./research_papers/alzheimers.pdf" target="_blank">
                             <img src="./images/AD.jpg" alt="Alzheimer's Research Paper" class="talk-image">
                             <div class="talk-title">A Novel Transformer-Based Multimodal Deep Learning Framework for Alzheimer's Disease Diagnosis (2024)</div>
                         </a>
                     </div>
                     
                     <div class="talk">
-                        <a href="./research_papers/pinn.pdf">
+                        <a href="./research_papers/pinn.pdf" target="_blank">
                             <img src="./images/pinn.jpg" alt="Autonomous Racing Research" class="talk-image">
                             <div class="talk-title">Estimation of Bicycle Dynamic Model Parameters with Physics-Informed Neural Networks (2024)</div>
                         </a>
                     </div>
                     
                     <div class="talk">
-                        <a href="./research_papers/Dask.pdf">
+                        <a href="./research_papers/Dask.pdf" target="_blank">
                             <img src="./images/dask.jpg" alt="Distributed Computing Research" class="talk-image">
                             <div class="talk-title">Scalable Cloud-Based Distributed Computing for Efficient Big Data Analytics (2023)</div>
                         </a>
                     </div>
                     
                     <div class="talk">
-                        <a href="./research_papers/shapely.pdf">
+                        <a href="./research_papers/shapely.pdf" target="_blank">
                             <img src="./images/shap.jpg" alt="Explainable AI Research" class="talk-image">
                             <div class="talk-title">Explainable and Unbiased Predictive Analytics for Institutional Researchers (2024)</div>
                         </a>
                     </div>
                     
                     <div class="talk">
-                        <a href="./research_papers/igcvae.pdf">
+                        <a href="./research_papers/igcvae.pdf" target="_blank">
                             <img src="./images/gene.jpg" alt="Explainable AI Research" class="talk-image">
-                            <div class="talk-title">Deciphering Alzheimer’s Disease Through MRI and Synthetic Gene Expression Data</div>
+                            <div class="talk-title">Deciphering Alzheimer's Disease Through MRI and Synthetic Gene Expression Data</div>
                         </a>
                     </div>
                     <div class="talk">
-                        <a href="./research_papers/lap.pdf">
+                        <a href="./research_papers/lap.pdf" target="_blank">
                             <img src="./images/lap.jpg" alt="Learning Analytics Research" class="talk-image">
                             <div class="talk-title">Using Machine Learning and Variable Importance to Support Program Development (2024)</div>
                         </a>
@@ -427,9 +505,195 @@
             </div>
         </section>
         
+        <!-- Certifications Section -->
+        <section id="certifications" class="section">
+            <div class="container">
+                <h2>Professional Certifications</h2>
+                <p class="section-intro">Industry-recognized certifications in AI, machine learning, and data science.</p>
+                
+                <div class="certifications-compact">
+                    <!-- Deep Learning -->
+                    <div class="cert-category">
+                        <h3>Deep Learning & Neural Networks</h3>
+                        <div class="cert-list">
+                            <div class="cert-item">
+                                <span class="cert-name">Deep Learning Specialization</span>
+                                <span class="cert-provider">Coursera</span>
+                                <a href="./certifications/Deeplearning Specialization.pdf" target="_blank">↗</a>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-name">Convolutional Neural Networks</span>
+                                <span class="cert-provider">Coursera</span>
+                                <a href="./certifications/CNN-coursera.pdf" target="_blank">↗</a>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-name">Sequence Models</span>
+                                <span class="cert-provider">Coursera</span>
+                                <a href="./certifications/SequenceModels.pdf" target="_blank">↗</a>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-name">Neural Networks & Deep Learning</span>
+                                <span class="cert-provider">Coursera</span>
+                                <a href="./certifications/neuralNetworks.pdf" target="_blank">↗</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Machine Learning -->
+                    <div class="cert-category">
+                        <h3>Machine Learning & Data Science</h3>
+                        <div class="cert-list">
+                            <div class="cert-item">
+                                <span class="cert-name">Machine Learning A-Z</span>
+                                <span class="cert-provider">Udemy</span>
+                                <a href="./certifications/ML-AtoZ.pdf" target="_blank">↗</a>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-name">Data Science Bootcamp</span>
+                                <span class="cert-provider">Professional Training</span>
+                                <a href="./certifications/DataScience-BootCamp.pdf" target="_blank">↗</a>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-name">Structuring ML Projects</span>
+                                <span class="cert-provider">Coursera</span>
+                                <a href="./certifications/Structuring ML projects.pdf" target="_blank">↗</a>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-name">Hyperparameter Tuning</span>
+                                <span class="cert-provider">Specialized Training</span>
+                                <a href="./certifications/HyperParameter-Tuning.pdf" target="_blank">↗</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Technical Tools -->
+                    <div class="cert-category">
+                        <h3>Technical Frameworks</h3>
+                        <div class="cert-list">
+                            <div class="cert-item">
+                                <span class="cert-name">PyTorch Deep Learning</span>
+                                <span class="cert-provider">Professional Training</span>
+                                <a href="./certifications/Pytorch.pdf" target="_blank">↗</a>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-name">TensorRT Optimization</span>
+                                <span class="cert-provider">NVIDIA</span>
+                                <a href="./certifications/TensorRT.pdf" target="_blank">↗</a>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-name">Natural Language Processing</span>
+                                <span class="cert-provider">Specialized Training</span>
+                                <a href="./certifications/NLP.pdf" target="_blank">↗</a>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-name">MongoDB Database</span>
+                                <span class="cert-provider">MongoDB University</span>
+                                <a href="./certifications/MongoDB.pdf" target="_blank">↗</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Ethics -->
+                    <div class="cert-category">
+                        <h3>AI Ethics & Analytics</h3>
+                        <div class="cert-list">
+                            <div class="cert-item">
+                                <span class="cert-name">Intro to AI Ethics</span>
+                                <span class="cert-provider">Kaggle</span>
+                                <a href="./certifications/Dilip Nikhil F - Intro to AI Ethics.png" target="_blank">↗</a>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-name">ML Explainability</span>
+                                <span class="cert-provider">Kaggle</span>
+                                <a href="./certifications/Dilip Nikhil F - Machine Learning Explainability.png" target="_blank">↗</a>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-name">Google Analytics</span>
+                                <span class="cert-provider">Google</span>
+                                <a href="./certifications/GoogleAnalytics.pdf" target="_blank">↗</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Industry Leaders & Professors Section -->
+        <section id="collaborators" class="section">
+            <div class="container">
+                <h2>Professional & Academic Mentors I've Worked With</h2>
+                <p class="section-intro">I've been fortunate to learn from exceptional mentors and colleagues throughout my journey</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
+                    <!-- Industry Leaders Column -->
+                    <div class="collaborators-column">
+                        <h3 class="column-title">Professional Mentors</h3>
+                        <div class="collaborator-list">
+                            <ul style="list-style: disc; padding-left: 1.5rem; color: #333;">
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://iuia.iu.edu/about/staff/insteffective/research-analytics/research-analytics-manager-bio/sfiorini.html" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Stefano Fiorini</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Manager - Research & Analytics at Indiana University Bloomington</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://iuia.iu.edu/about/staff/insteffective/research-analytics/research-analytics-bios/gdeom.html" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Gina Deom</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Data Analyst - Research & Analytics at Indiana University Bloomington</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://f.inc/portfolio/pamir-ai" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Kevin Zhang & Tianqi Ye</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, ex-Microsoft, Founders - Pamir AI</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://in.linkedin.com/in/arunkumar-venugopal-7659465" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Arunkumar Venugopal</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Delivery Head, GenAI and Automation - Hexaware Solutions</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://hexaware.com/blogs/modern-marketing-agency-of-the-future/" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Nirmal Mazumdar</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Vice President - Hexaware Technologies</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://in.linkedin.com/in/silja-vinu-a174133b" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Silja Vinu</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Presales Solutions Architect - Accenture AI</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://in.linkedin.com/in/hereisashish" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Ashish Dubey</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Technical Architect, AI and Automation - Hexaware Technologies</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Academic Professors Column -->
+                    <div class="collaborators-column">
+                        <h3 class="column-title">Academic Mentors</h3>
+                        <div class="collaborator-list">
+                            <ul style="list-style: disc; padding-left: 1.5rem; color: #333;">
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://marinaniessner.com/" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Dr. Marina Neisner</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Assistant Professor of Finance - Ph.D. in Economics from University of Chicago, ex Vice President at AQR Capital Management</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://history.indiana.edu/faculty_staff/faculty/schlesinger_jonathan.html" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Dr. Jonathan Schlesinger</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Associate Professor - Ph.D., Harvard University</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://www.mariusguenzel.com/" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Dr. Marius Guenzel</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Assistant Professor of Finance - The Wharton School, University of Pennsylvania</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://homes.luddy.indiana.edu/djcran/?_gl=1*1fh11hr*_gcl_au*MTg1NTAxMjg3Ny4xNzU5NDQ4MjU4*_ga*NzgyMDk4MDcxLjE3NTk0NDgyNTc.*_ga_61CH0D2DQW*czE3NTk0NDgyNTckbzEkZzAkdDE3NTk0NDgyNTckajYwJGwwJGgw" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Dr. David Crandall</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Luddy Professor of Computer Science, Director - Luddy Artificial Intelligence Center at Indiana University</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://www.shimonkogan.com/" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Dr. Shimon Kogan</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Associate Professor - Wharton Business School</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://medicine.iu.edu/faculty/68118/huang-xiaoqing" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Dr. Xiaoqing Huang</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Asst. Research Professor - Indiana University Bloomington</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://cepr.org/about/people/pranav-garg" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Pranav Garg</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, Doctoral Candidate - Financial Economics at Yale University</span>
+                                </li>
+                                <li style="margin-bottom: 0.6rem; line-height: 1.5; font-family: 'Segoe UI', 'Arial', sans-serif;">
+                                    <a href="https://scholar.google.com/citations?user=SPkVT4IAAAAJ&hl=en" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700; font-size: 1.05rem; font-family: 'Georgia', serif; transition: color 0.2s;">Hassan Jardali</a><span style="color: #555; font-weight: 400; font-size: 0.95rem;">, PhD Student - Intelligent Systems Engineering at Indiana University Bloomington</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <style>
             .container {
-                max-width: 1200px;
+                max-width: 1300px;
                 margin: 0 auto;
             }
             
@@ -447,10 +711,17 @@
                 padding: 10px
             }
             
-            .talk-image {
-                width: 100%;
-                height: 150px;
-                border-radius: 8px;
+            .talk img {
+                aspect-ratio: 16/9;
+                object-fit: cover;
+                border-radius: px;
+                margin-bottom: 0.5rem;
+                transition: transform 0.2s;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            
+            .talk:hover img {
+                transform: translateY(-3px);
             }
             
             .talk-title {
@@ -463,6 +734,469 @@
                 text-align: center;
                 margin-bottom: 20px;
             }
+            
+            /* Minimalistic Testimonials Section */
+        .testimonials-minimalistic {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 0.5rem;
+            max-width: 1300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+            
+        .testimonial-minimal {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+            
+            .testimonial-minimal::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 3px;
+                height: 100%;
+                background: #000000;
+                border-radius: 0 8px 8px 0;
+            }
+            
+            .testimonial-minimal:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+            
+            .testimonial-header-minimal {
+                margin-bottom: 1rem;
+                padding-bottom: 0.75rem;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            
+            .testimonial-name {
+                font-family: 'Georgia', serif;
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: #000000;
+                margin: 0 0 0.25rem 0;
+                line-height: 1.3;
+            }
+            
+            .testimonial-role {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                font-size: 0.9rem;
+                color: #666666;
+                margin: 0;
+                line-height: 1.4;
+                font-weight: 500;
+            }
+            
+            .testimonial-quote {
+                font-family: 'Georgia', serif;
+                font-size: 0.9rem;
+                line-height: 1.5;
+                color: #2d3748;
+                font-style: italic;
+                margin: 0;
+                padding: 0;
+                border: none;
+                position: relative;
+                padding-left: 1rem;
+            }
+            
+            .testimonial-quote::before {
+                content: '"';
+                font-size: 3rem;
+                color: #e2e8f0;
+                position: absolute;
+                top: -10px;
+                left: -10px;
+                font-family: Georgia, serif;
+                line-height: 1;
+            }
+            
+            /* Responsive Design for Minimalistic Testimonials */
+            @media (max-width: 1200px) {
+                .testimonials-minimalistic {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 1.25rem;
+                }
+            }
+            
+            @media (max-width: 768px) {
+                .testimonials-minimalistic {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                    margin-top: 1.5rem;
+                }
+                
+                .testimonial-minimal {
+                    padding: 1.25rem;
+                }
+                
+                .testimonial-name {
+                    font-size: 1rem;
+                }
+                
+                .testimonial-role {
+                    font-size: 0.85rem;
+                }
+                
+                .testimonial-quote {
+                    font-size: 0.9rem;
+                    line-height: 1.5;
+                    padding-left: 0.75rem;
+                }
+                
+                .testimonial-quote::before {
+                    font-size: 2.5rem;
+                    top: -8px;
+                    left: -8px;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .testimonial-minimal {
+                    padding: 1rem;
+                }
+                
+                .testimonial-name {
+                    font-size: 0.95rem;
+                }
+                
+                .testimonial-role {
+                    font-size: 0.8rem;
+                }
+                
+                .testimonial-quote {
+                    font-size: 0.85rem;
+                    padding-left: 0.5rem;
+                }
+                
+                .testimonial-quote::before {
+                    font-size: 2rem;
+                    top: -6px;
+                    left: -6px;
+                }
+            }
+            
+            /* Two-Column Collaborators Section - Ultra Compact Version */
+            .collaborators-two-column {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.75rem;
+                margin-top: 0.75rem;
+            }
+            
+            .collaborators-column {
+                background: #f9f9f9;
+                border-radius: 4px;
+                padding: 0.75rem;
+                border: 1px solid #e5e5e5;
+            }
+            
+            .column-title {
+                font-size: 1rem;
+                font-weight: 600;
+                color: #000000;
+                margin-bottom: 0.75rem;
+                text-align: center;
+                border-bottom: 2px solid #000000;
+                padding-bottom: 0.25rem;
+            }
+            
+            .collaborator-card {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: white;
+                border-radius: 3px;
+                padding: 0.4rem;
+                margin-bottom: 0.35rem;
+                border: 1px solid #e0e0e0;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            
+            .collaborator-card:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            
+            .collaborator-card-text {
+                background: white;
+                border-radius: 3px;
+                padding: 0.4rem;
+                margin-bottom: 0.35rem;
+                border: 1px solid #e0e0e0;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            
+            .collaborator-card-text:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            
+            .collaborator-image {
+                flex-shrink: 0;
+            }
+            
+            .collaborator-image img {
+                width: 75px;
+                height: 75px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid #f0f0f0;
+            }
+            
+            .collaborator-info {
+                flex: 1;
+            }
+            
+            .collaborator-name {
+                font-weight: 600;
+                color: #000000;
+                font-size: 0.9rem;
+                margin-bottom: 2px;
+                line-height: 1.1;
+            }
+            
+            .collaborator-title {
+                color: #333333;
+                font-size: 0.75rem;
+                margin-bottom: 1px;
+                font-weight: 500;
+                line-height: 1.1;
+            }
+            
+            .collaborator-company {
+                color: #666666;
+                font-size: 0.7rem;
+                line-height: 1.1;
+            }
+            
+            @media (max-width: 768px) {
+                .collaborators-two-column {
+                    grid-template-columns: 1fr;
+                    gap: 0.5rem;
+                }
+                
+                .collaborators-column {
+                    padding: 0.5rem;
+                }
+                
+                .collaborator-card {
+                    flex-direction: column;
+                    text-align: center;
+                    gap: 0.4rem;
+                    padding: 0.4rem;
+                    margin-bottom: 0.3rem;
+                }
+                
+                .collaborator-image img {
+                    width: 65px;
+                    height: 65px;
+                }
+                
+                .column-title {
+                    font-size: 0.95rem;
+                    margin-bottom: 0.5rem;
+                }
+                
+                .collaborator-name {
+                    font-size: 0.85rem;
+                }
+                
+                .collaborator-title {
+                    font-size: 0.7rem;
+                }
+                
+                .collaborator-company {
+                    font-size: 0.65rem;
+                }
+            }
+            
+            /* Legacy Collaborators Sections (for backward compatibility) */
+            .collaborators-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin-top: 1.5rem;
+            }
+            
+            .collaborator-item {
+                background: #f9f9f9;
+                border: 1px solid #e5e5e5;
+                border-radius: 6px;
+                padding: 16px;
+                text-align: center;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            
+            .collaborator-item:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            
+            .collaborator-affiliation {
+                color: #666666;
+                font-size: 0.85rem;
+                line-height: 1.3;
+            }
+            
+            @media (max-width: 768px) {
+                .collaborators-list {
+                    grid-template-columns: 1fr;
+                    gap: 12px;
+                }
+                
+                .collaborator-item {
+                    padding: 12px;
+                }
+            }
+            
+            /* Certifications Section - Minimal Black & White */
+            .certifications-compact {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
+                margin-top: 1.5rem;
+            }
+            
+            .cert-category {
+                border: 1px solid #e2e8f0;
+                padding: 1rem;
+                background: white;
+            }
+            
+            .cert-category h3 {
+                font-size: 1rem;
+                font-weight: 600;
+                color: #000000;
+                margin-bottom: 0.75rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            
+            .cert-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .cert-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #f7f7f7;
+                transition: background-color 0.2s ease;
+            }
+            
+            .cert-item:last-child {
+                border-bottom: none;
+            }
+            
+            .cert-item:hover {
+                background-color: #f9f9f9;
+            }
+            
+            .cert-name {
+                font-size: 0.85rem;
+                font-weight: 500;
+                color: #000000;
+                flex: 1;
+            }
+            
+            .cert-provider {
+                font-size: 0.75rem;
+                color: #666666;
+                margin-right: 0.5rem;
+                flex-shrink: 0;
+            }
+            
+            .cert-item a {
+                font-size: 0.9rem;
+                color: #000000;
+                text-decoration: none;
+                padding: 0.25rem 0.5rem;
+                border: 1px solid #e2e8f0;
+                transition: all 0.2s ease;
+                flex-shrink: 0;
+            }
+            
+            .cert-item a:hover {
+                background-color: #000000;
+                color: white;
+                border-color: #000000;
+            }
+            
+            /* Responsive design for certifications */
+            @media (max-width: 768px) {
+                .certifications-compact {
+                    grid-template-columns: 1fr;
+                    gap: 1rem;
+                }
+                
+                .cert-category {
+                    padding: 0.75rem;
+                }
+                
+                .cert-category h3 {
+                    font-size: 0.95rem;
+                }
+                
+                .cert-item {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 0.25rem;
+                }
+                
+                .cert-name {
+                    font-size: 0.8rem;
+                }
+                
+                .cert-provider {
+                    font-size: 0.7rem;
+                    margin-right: 0;
+                }
+                
+                .cert-item a {
+                    font-size: 0.8rem;
+                    align-self: flex-end;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .cert-category {
+                    padding: 0.5rem;
+                }
+                
+                .cert-category h3 {
+                    font-size: 0.9rem;
+                }
+                
+                .cert-name {
+                    font-size: 0.75rem;
+                }
+                
+                .cert-provider {
+                    font-size: 0.65rem;
+                }
+                
+                .cert-item a {
+                    font-size: 0.75rem;
+                    padding: 0.2rem 0.4rem;
+                }
+            }
+            
+        /* Professional styling for collaborator names */
+        .collaborator-list a:hover {
+            border-bottom: 1px solid #000 !important;
+        }
         </style>
         
         <!-- Teaching Section
@@ -536,12 +1270,53 @@
                 </a>
             </div>
         </div> -->
-    </div>
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section">
+        <div class="container">
+            <h2>Testimonials</h2>
+            <p class="section-intro"></p>
+            
+            <div class="testimonials-minimalistic">
+                <div class="testimonial-minimal">
+                    <div class="testimonial-header-minimal">
+                        <h4 class="testimonial-name">Gina Deom</h4>
+                        <p class="testimonial-role">Data Analyst, Research & Analytics, Indiana University</p>
+                    </div>
+                    <blockquote class="testimonial-quote">
+                        "Dilip is extremely diligent and conscientious with the qualities of a lifelong learner. He is independent, detail-oriented, and can solve problems while staying at the forefront of the latest technologies and trends. Dilip will contribute positively to your company's long-term goals and innovation strategies."
+                    </blockquote>
+                </div>
+                
+                <div class="testimonial-minimal">
+                    <div class="testimonial-header-minimal">
+                        <h4 class="testimonial-name">Dr. Jonathan Schlesinger</h4>
+                        <p class="testimonial-role">Associate Professor, Ph.D. Harvard University</p>
+                    </div>
+                    <blockquote class="testimonial-quote">
+                        "Dilip is the rare professional who takes initiative and acts more like a resourceful colleague than a subordinate. Meetings with Dilip are efficient - he listens carefully, asks insightful questions to understand both immediate tasks and overarching goals, then executes independently."
+                    </blockquote>
+                </div>
+                
+                
+                <div class="testimonial-minimal">
+                    <div class="testimonial-header-minimal">
+                        <h4 class="testimonial-name">Dr. Xiaoqing Huang</h4>
+                        <p class="testimonial-role">Asst. Research Professor, Indiana University</p>
+                    </div>
+                    <blockquote class="testimonial-quote">
+                        "Dilip brings valuable industry experience that complements his academic work. He approaches problems with both theoretical and practical mindsets, enriching our research. He consistently offers thoughtful insights, engages in discussions, and provides constructive feedback. His collaborative nature and intellectual curiosity make him an essential team member."
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
     
     <footer>
         <div class="container">
             <p>&copy; 2025 Dilip Nikhil. All rights reserved.</p>
         </div>
     </footer>
+
 </body>
 </html>
