@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dilip Nikhil - Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #000;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: #333;
+        }
+
+        .back-button::before {
+            content: "←";
+            font-size: 1.2rem;
+        }
+
+        .pdf-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .pdf-embed {
+            width: 100%;
+            height: calc(100vh - 120px);
+            min-height: 800px;
+            border: none;
+        }
+
+        .download-section {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #000;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            font-size: 1rem;
+        }
+
+        .download-button:hover {
+            background-color: #333;
+        }
+
+        .download-button::after {
+            content: "↓";
+            font-size: 1.2rem;
+        }
+
+        /* Fallback message for browsers that don't support PDF embedding */
+        .fallback-message {
+            display: none;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .fallback-message h2 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .fallback-message p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .pdf-container {
+                margin: 1rem auto;
+                border-radius: 0;
+            }
+
+            .pdf-embed {
+                height: calc(100vh - 100px);
+                min-height: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Dilip Nikhil - Resume</h1>
+        <a href="index.html" class="back-button">Back to Portfolio</a>
+    </div>
+
+    <div class="pdf-container">
+        <!-- PDF Embed -->
+        <embed 
+            src="./resume/resume.pdf#toolbar=1&navpanes=1&scrollbar=1" 
+            type="application/pdf" 
+            class="pdf-embed"
+            id="pdfEmbed"
+        >
+
+        <!-- Fallback for browsers that don't support PDF embedding -->
+        <div class="fallback-message" id="fallbackMessage">
+            <h2>View Resume</h2>
+            <p>Your browser doesn't support embedded PDFs. Please download the resume to view it.</p>
+            <a href="./resume/resume.pdf" download class="download-button">Download Resume</a>
+        </div>
+    </div>
+
+    <div class="download-section">
+        <a href="./resume/resume.pdf" download class="download-button">Download PDF Resume</a>
+    </div>
+
+    <script>
+        // Check if PDF embedding is supported, show fallback if not
+        const embed = document.getElementById('pdfEmbed');
+        const fallback = document.getElementById('fallbackMessage');
+        
+        embed.addEventListener('error', function() {
+            embed.style.display = 'none';
+            fallback.style.display = 'block';
+        });
+
+        // Alternative: Use object tag if embed doesn't work
+        if (!embed.type) {
+            embed.style.display = 'none';
+            fallback.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
